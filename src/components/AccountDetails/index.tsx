@@ -10,7 +10,6 @@ import { useAppDispatch } from 'app/state/hooks'
 import { clearAllTransactions } from 'app/state/transactions/actions'
 import React, { FC, useCallback, useMemo } from 'react'
 import { ChevronRight, ExternalLink as LinkIcon } from 'react-feather'
-import { WalletLinkConnector } from 'web3-react-walletlink-connector'
 
 import Button from '../Button'
 import ExternalLink from '../ExternalLink'
@@ -113,13 +112,13 @@ const AccountDetails: FC<AccountDetailsProps> = ({
               <div className="flex items-center gap-2 border-b border-b-[2px] border-b-[#2E2E2E] mb-2">
                 {ENSName ? ENSName : account && shortenAddress(account)} {account && <Copy toCopy={account}></Copy>}
               </div>
-              <div>
+              <div className="flex items-center	justify-between">
                 {connectorName}
-                {connector !== injected && !(connector instanceof WalletLinkConnector) && (
-                  <Button size="xs" onClick={deactivate} className="border-none bg-inherit text-[#746AFB]">
-                    {i18n._(t`Disconnect`)}
-                  </Button>
-                )}
+                {/* {connector !== injected && !(connector instanceof WalletLinkConnector) && ( */}
+                <Button size="xs" onClick={deactivate} className="border-none bg-inherit text-[#746AFB] pl-4">
+                  {i18n._(t`Disconnect`)}
+                </Button>
+                {/* )} */}
               </div>
               <div id="web3-account-identifier-row" className="flex flex-col justify-center gap-4"></div>
             </Typography>
@@ -144,7 +143,7 @@ const AccountDetails: FC<AccountDetailsProps> = ({
         </div>
       </HeadlessUiModal.BorderedContent>
       <HeadlessUiModal.BorderedContent className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pt-4">
           <Typography variant="lg" weight={700} className="text-white">
             {i18n._(t`Transaction History`)}
           </Typography>
