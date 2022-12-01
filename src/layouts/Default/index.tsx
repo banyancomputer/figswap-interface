@@ -10,8 +10,6 @@ const Layout = ({ children }) => {
       <div className="flex flex-row justify-between items-center">
         <Header />
         <Main>{children}</Main>
-        {/* extra div because 3 rows */}
-        <div></div>
       </div>
       <Popups />
       <Footer />
