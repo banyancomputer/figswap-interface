@@ -12,10 +12,10 @@ const Footer = () => {
   const { i18n } = useLingui()
 
   return (
-    <div className="w-full border-t">
+    <div className="w-full border-t border-t-2 border-[#6E6E6E]">
       <Container maxWidth="7xl" className="mx-auto h-[491px] flex flex-row">
-        <div className="relative self-start max-w-sm h-full py-6 bg-[#000000] border-r border-r-2 border-[#6E6E6E] w-[190px]"></div>
-        <div className="flex flex-col p-4">
+        <div className="relative self-start max-w-sm h-full py-6 border-r border-r-2 border-[#6E6E6E] w-[190px]"></div>
+        <div className="flex flex-col p-10">
           <div className="flex items-center pb-4">
             <svg width="67" height="67" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -74,17 +74,17 @@ const Footer = () => {
               {i18n._(t`Resources`)}
             </Typography>
             <a href="https://docs.sushi.com" target="_blank" rel="noreferrer">
-              <Typography variant="h2" className="text-low-emphesis hover:text-high-emphesis">
+              <Typography variant="h2" className="text-white">
                 {i18n._(t`Documentation`)}
               </Typography>
             </a>
             <a href="https://discord.gg/NVPXN4e" target="_blank" rel="noreferrer">
-              <Typography variant="h2" className="text-low-emphesis hover:text-high-emphesis">
+              <Typography variant="h2" className="text-white">
                 {i18n._(t`Github`)}
               </Typography>
             </a>
             <a href="https://twitter.com/sushiswap" target="_blank" rel="noreferrer">
-              <Typography variant="h2" className="text-low-emphesis hover:text-high-emphesis">
+              <Typography variant="h2" className="text-white">
                 {i18n._(t`FAQ`)}
               </Typography>
             </a>
@@ -94,17 +94,17 @@ const Footer = () => {
               {i18n._(t`Banyan`)}
             </Typography>
             <a href="https://docs.sushi.com" target="_blank" rel="noreferrer">
-              <Typography variant="h2" className="text-low-emphesis hover:text-high-emphesis">
+              <Typography variant="h2" className="text-white">
                 {i18n._(t`About`)}
               </Typography>
             </a>
             <a href="https://github.com/sushiswap" target="_blank" rel="noreferrer">
-              <Typography variant="h2" className="text-low-emphesis hover:text-high-emphesis">
+              <Typography variant="h2" className="text-white">
                 {i18n._(t`Brand Assets`)}
               </Typography>
             </a>
             <a href="https://dev.sushi.com" target="_blank" rel="noreferrer">
-              <Typography variant="h2" className="text-low-emphesis hover:text-high-emphesis">
+              <Typography variant="h2" className="text-white">
                 {i18n._(t`Careers`)}
               </Typography>
             </a>
@@ -114,22 +114,22 @@ const Footer = () => {
               {i18n._(t`Contact`)}
             </Typography>
             <a href="https://forum.sushi.com" target="_blank" rel="noreferrer">
-              <Typography variant="h2" className="text-low-emphesis hover:text-high-emphesis">
+              <Typography variant="h2" className="text-white">
                 {i18n._(t`Support`)}
               </Typography>
             </a>
             <a href="https://snapshot.org/#/sushigov.eth" target="_blank" rel="noreferrer">
-              <Typography variant="h2" className="text-low-emphesis hover:text-high-emphesis">
+              <Typography variant="h2" className="text-white">
                 {i18n._(t`Feedback`)}
               </Typography>
             </a>
             <a href="https://snapshot.org/#/sushigov.eth" target="_blank" rel="noreferrer">
-              <Typography variant="h2" className="text-low-emphesis hover:text-high-emphesis">
+              <Typography variant="h2" className="text-white">
                 {i18n._(t`Press inquries`)}
               </Typography>
             </a>
             <a href="https://snapshot.org/#/sushigov.eth" target="_blank" rel="noreferrer">
-              <Typography variant="h2" className="text-low-emphesis hover:text-high-emphesis">
+              <Typography variant="h2" className="text-white">
                 {i18n._(t`Get in touch`)}
               </Typography>
             </a>
@@ -138,19 +138,19 @@ const Footer = () => {
           <div className="flex flex-col gap-14">
             <div className="flex items-center gap-6">
               <a href="https://twitter.com/sushiswap" target="_blank" rel="noreferrer">
-                <TwitterIcon width={27} className="text-low-emphesis" />
+                <TwitterIcon width={27} color="white" />
               </a>
               <a href="https://discord.gg/NVPXN4e" target="_blank" rel="noreferrer">
-                <TelegramIcon width={27} className="text-low-emphesis" />
+                <TelegramIcon width={27} color="white" />
               </a>
               <a href="https://instagram.com/instasushiswap" target="_blank" rel="noreferrer">
-                <InstagramIcon width={27} className="text-low-emphesis" />
+                <InstagramIcon width={27} color="white" />
               </a>
               <a href="https://discord.gg/NVPXN4e" target="_blank" rel="noreferrer">
-                <DiscordIcon width={27} className="text-low-emphesis" />
+                <DiscordIcon width={27} color="white" />
               </a>
               <a href="https://medium.com/sushiswap-org" target="_blank" rel="noreferrer">
-                <MediumIcon width={27} className="text-low-emphesis" />
+                <MediumIcon width={27} color="white" />
               </a>
             </div>
             <svg width="233" height="30" viewBox="0 0 233 30" fill="none" xmlns="http://www.w3.org/2000/svg">
