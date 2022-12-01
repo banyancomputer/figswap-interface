@@ -1,5 +1,6 @@
 import { ExternalProvider } from '@ethersproject/providers'
 import { SUPPORTED_NETWORKS } from 'app/modals/NetworkModal'
+import { UnsupportedChainIdError } from 'web3-react-core'
 
 interface SwitchNetworkArguments {
   provider: ExternalProvider
@@ -12,6 +13,9 @@ export const switchToNetwork = async ({ provider, chainId }: SwitchNetworkArgume
   }
   console.log(`Switching to chain ${chainId}`)
   const params = SUPPORTED_NETWORKS[chainId]
+  if (!params) {
+    throw new UnsupportedChainIdError(chainId)
+  }
   try {
     console.log('switchToNetwork -> params', params)
     await provider.request({
