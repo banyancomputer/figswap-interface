@@ -86,22 +86,9 @@ const Desktop: FC = () => {
           })}
         </nav>
 
-        <Button size="lg" onClick={deactivate} className="absolute bottom-0 border-none bg-inherit text-[#6E6E6E]">
+        <Button size="lg" onClick={deactivate} className="absolute bottom-0 border-none text-[#6E6E6E] bg-[#000]">
           {i18n._(t`Disconnect`)}
         </Button>
-
-        {/* {library && account && chainId && (
-          <div>
-            <NavigationItem
-              node={{
-                key: 'disconnect',
-                title: 'Disconnect',
-                action: deactivate,
-              }}
-              key={'disconnect'}
-            />
-          </div>
-        )} */}
       </div>
     </>
   )
