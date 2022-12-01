@@ -1,14 +1,11 @@
-import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { SIDE_NAV_CLASS } from 'app/components/Header/styles'
 import useMenu from 'app/components/Header/useMenu'
-import Web3Network from 'app/components/Web3Network'
 import Web3Status from 'app/components/Web3Status'
 import { useActiveWeb3React } from 'app/services/web3'
 import Link from 'next/link'
 import React, { FC } from 'react'
 
-import Button from '../Button'
 import { NavigationItem } from './NavigationItem'
 
 const HEADER_HEIGHT = 64
@@ -74,11 +71,11 @@ const Desktop: FC = () => {
             <Web3Status />
             {/* Note (amiller68): #MetamaskOnly - For now the provider is Always Metamask */}
             {/*{library && (library.provider.isMetaMask || isCoinbaseWallet) && (*/}
-            {library && account && chainId && (
+            {/* {library && account && chainId && (
               <div className="">
                 <Web3Network />
               </div>
-            )}
+            )} */}
           </div>
 
           {menu.map((node) => {
@@ -86,9 +83,10 @@ const Desktop: FC = () => {
           })}
         </nav>
 
-        <Button size="lg" onClick={deactivate} className="absolute bottom-0 border-none text-[#6E6E6E] bg-[#000]">
+        {/* Note (amiller68): Disconnect button doesn't work with injected providers like Metamask */}
+        {/* <Button size="lg" onClick={deactivate} className="absolute bottom-0 border-none text-[#6E6E6E] bg-[#000]">
           {i18n._(t`Disconnect`)}
-        </Button>
+        </Button> */}
       </div>
     </>
   )

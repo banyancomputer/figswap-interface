@@ -3,7 +3,7 @@ import { MenuIcon } from '@heroicons/react/outline'
 // TODO / Note (amiller68): #SdkChange / SdkPublish
 import { SIDE_NAV_CLASS } from 'app/components/Header/styles'
 import useMenu, { MenuItem } from 'app/components/Header/useMenu'
-import Web3Network, { Web3NetworkIcon } from 'app/components/Web3Network'
+import { Web3NetworkIcon } from 'app/components/Web3Network'
 import Web3Status from 'app/components/Web3Status'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useNativeCurrencyBalances } from 'app/state/wallet/hooks'
@@ -104,20 +104,14 @@ const Mobile: FC = () => {
                   <div className="w-screen max-w-sm">
                     {/* <div className="flex flex-col h-full py-6 overflow-x-hidden shadow-xl bg-dark-800"> */}
                     <div className="absolute left-0 max-w-sm h-screen py-6 overflow-x-hidden bg-[#000000] border-r border-r-2 border-[#6E6E6E]">
-                      <div className="mb-8 flex flex-col select-none whitespace-nowrap m-4">
-                        <Web3Status />
-                        {library && account && chainId && (
-                          <div className="">
-                            <Web3Network />
-                          </div>
-                        )}
-                      </div>
+                      <Web3Status />
                       <nav className={SIDE_NAV_CLASS} aria-label="Sidebar">
                         {/* Menu Items */}
                         {menu.map((node: MenuItem) => {
                           return <NavigationItem node={node} key={node.key} />
                         })}
                       </nav>
+                      {/* Note (amiller68): Disconnect button doesn't work with injected providers like Metamask */}
                       {/* TODO (amiller68): Disconnect Button */}
                       {/* {library && account && chainId && (
                         <div>
