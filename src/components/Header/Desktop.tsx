@@ -89,19 +89,6 @@ const Desktop: FC = () => {
         <Button size="lg" onClick={deactivate} className="absolute bottom-0 border-none bg-inherit text-[#6E6E6E]">
           {i18n._(t`Disconnect`)}
         </Button>
-
-        {/* {library && account && chainId && (
-          <div>
-            <NavigationItem
-              node={{
-                key: 'disconnect',
-                title: 'Disconnect',
-                action: deactivate,
-              }}
-              key={'disconnect'}
-            />
-          </div>
-        )} */}
       </div>
     </>
   )
