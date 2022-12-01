@@ -24,7 +24,7 @@ const CopyHelper: FC<CopyHelperProps> = ({ className, toCopy, children }) => {
       {!isCopied && (
         <div className="flex items-center gap-1 cursor-pointer">
           {children}
-          <DocumentDuplicateIcon width={16} height={16} />
+          <DocumentDuplicateIcon width={16} height={16} color={'#746AFB'} />
         </div>
       )}
     </div>

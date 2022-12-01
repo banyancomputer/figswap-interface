@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { SIDE_NAV_CLASS } from 'app/components/Header/styles'
 import useMenu from 'app/components/Header/useMenu'
@@ -7,6 +8,7 @@ import { useActiveWeb3React } from 'app/services/web3'
 import Link from 'next/link'
 import React, { FC } from 'react'
 
+import Button from '../Button'
 import { NavigationItem } from './NavigationItem'
 
 const HEADER_HEIGHT = 64
@@ -107,7 +109,11 @@ const Desktop: FC = () => {
             return <NavigationItem node={node} key={node.key} />
           })}
         </nav>
-        {/* TODO (amiller68): Disconnect Button */}
+
+        <Button size="lg" onClick={deactivate} className="absolute bottom-0 border-none bg-inherit text-[#6E6E6E]">
+          {i18n._(t`Disconnect`)}
+        </Button>
+
         {/* {library && account && chainId && (
           <div>
             <NavigationItem
