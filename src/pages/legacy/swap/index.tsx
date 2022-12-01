@@ -1,4 +1,6 @@
-import { CheckIcon, CogIcon, ExclamationIcon } from '@heroicons/react/solid'
+import { Currency, JSBI, Token, Trade as V2Trade, TradeType } from '@figswap/core-sdk'
+import { CogIcon, ExclamationIcon } from '@heroicons/react/outline'
+import { CheckIcon } from '@heroicons/react/solid'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Banner from 'app/components/Banner'
@@ -45,8 +47,8 @@ import { NextSeo } from 'next-seo'
 import { SwapProps } from 'pages/swap'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft } from 'react-feather'
-// TODO / Note (amiller68) - #SdkChange / #SdkPublish
-import { Currency, Percent, Token, TradeType } from 'sdk'
+
+import { SwapProps } from '../../swap'
 
 type Props = {
   placeholderSlippage?: Percent

@@ -11,6 +11,7 @@ import { clearAllTransactions } from 'app/state/transactions/actions'
 import React, { FC, useCallback, useMemo } from 'react'
 import { ChevronRight, ExternalLink as LinkIcon } from 'react-feather'
 
+// import { WalletLinkConnector } from 'web3-react-walletlink-connector'
 import Button from '../Button'
 import ExternalLink from '../ExternalLink'
 import NavLink from '../NavLink'
@@ -115,10 +116,9 @@ const AccountDetails: FC<AccountDetailsProps> = ({
               <div className="flex items-center	justify-between">
                 {connectorName}
                 {/* {connector !== injected && !(connector instanceof WalletLinkConnector) && ( */}
-                <Button size="xs" onClick={deactivate} className="border-none bg-inherit text-[#746AFB] pl-4">
+                {/* <Button size="xs" onClick={deactivate} className="border-none bg-inherit text-[#746AFB] pl-4">
                   {i18n._(t`Disconnect`)}
-                </Button>
-                {/* )} */}
+                </Button> */}
               </div>
               <div id="web3-account-identifier-row" className="flex flex-col justify-center gap-4"></div>
             </Typography>

@@ -25,7 +25,7 @@ const Desktop: FC = () => {
   return (
     <>
       <div className="relative self-start max-w-sm h-screen py-6 border-r border-r-2 border-[#6E6E6E] border-b border-b-2">
-        <Link href="/">
+        <Link href="/" passHref>
           <div className="flex justify-center p-4">
             {/* TODO (amiller68): #LogoBanner Reference Actual SVG using raw.githubusercontent link */}
             <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">

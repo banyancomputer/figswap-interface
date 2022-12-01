@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FC, Fragment, useCallback, useRef } from 'react'
 
-
 interface NavigationItem {
   node: MenuItem
 }
@@ -31,7 +30,7 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
     const { link } = node as MenuItemLeaf
     return (
       <Typography
-        onClick={() => router.push(link)}
+        onClick={() => router.push(link ?? '/')}
         weight={700}
         variant="sm"
         className={classNames(
@@ -50,16 +49,13 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
         onClick={action}
         weight={700}
         variant="sm"
-        className={classNames(
-          'hover:text-white active:text-white text-xl font-bold py-5 px-4 flex gap-3'
-        )}
+        className={classNames('hover:text-white active:text-white text-xl font-bold py-5 px-4 flex gap-3')}
       >
         {!isDesktop && node.icon}
         {node.title}
       </Typography>
     )
   }
-
 
   return (
     <Popover key={node.key} className="relative flex">
@@ -104,13 +100,13 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
                   {/*TODO: Figure out why this can be undefined*/}
                   {/*@ts-ignore*/}
                   {(node as MenuItemNode).items.map((leaf) => (
-                    <Link key={leaf.key} href={leaf.link}>
+                    <Link key={leaf.key} href={leaf.link ?? '/'}>
                       <a>
                         <Typography
                           variant="sm"
                           weight={700}
                           onClick={() => {
-                            router.push(leaf.link).then(() => buttonRef?.current?.click())
+                            router.push(leaf.link ?? '/').then(() => buttonRef?.current?.click())
                           }}
                           className="relative px-3 py-2 m-1 rounded-lg hover:cursor-pointer hover:text-white hover:bg-white/10"
                         >

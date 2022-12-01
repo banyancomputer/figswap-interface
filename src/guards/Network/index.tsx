@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro'
 import { Trans, useLingui } from '@lingui/react'
-import { ChainId } from '@sushiswap/core-sdk'
 import HeadlessUIModal from 'app/components/Modal/HeadlessUIModal'
 import NavLink from 'app/components/NavLink'
 import Typography from 'app/components/Typography'
@@ -60,13 +59,7 @@ const Component: FC<NetworkGuardProps> = ({ children, feature, asModal = true })
                 // @ts-ignore TYPE NEEDS FIXING
                 const params = SUPPORTED_NETWORKS[key]
                 cookie.set('chainId', key)
-                if (key === ChainId.ETHEREUM.toString()) {
-                  library?.send('wallet_switchEthereumChain', [{ chainId: '0x1' }, account])
-                } else if (key === ChainId.KOVAN.toString()) {
-                  library?.send('wallet_switchEthereumChain', [{ chainId: '0x2A' }, account])
-                } else {
-                  library?.send('wallet_addEthereumChain', [params, account])
-                }
+                library?.send('wallet_addEthereumChain', [params, account])
               }}
             >
               <div className="w-[40px] h-[40px]">
