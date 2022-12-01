@@ -2,7 +2,7 @@ import Davatar from '@davatar/react'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { NetworkContextName } from 'app/constants'
-import { shortenAddress } from 'app/functions'
+import { shortenAddressNavbar } from 'app/functions'
 import { isTxConfirmed, isTxPending } from 'app/functions/transactions'
 import useENSName from 'app/hooks/useENSName'
 import WalletModal from 'app/modals/WalletModal'
@@ -73,7 +73,7 @@ function Web3StatusInner() {
                 variant="sm"
                 className="font-mono px-1 uppercase tracking-tighter font-medium rounded-full text-xl"
               >
-                {ENSName ? ENSName.toUpperCase() : shortenAddress(account)}
+                {ENSName ? ENSName.toUpperCase() : shortenAddressNavbar(account)}
               </Typography>
             </div>
           </>

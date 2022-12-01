@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { SIDE_NAV_CLASS } from 'app/components/Header/styles'
 import useMenu from 'app/components/Header/useMenu'
@@ -7,6 +8,7 @@ import { useActiveWeb3React } from 'app/services/web3'
 import Link from 'next/link'
 import React, { FC } from 'react'
 
+import Button from '../Button'
 import { NavigationItem } from './NavigationItem'
 
 const HEADER_HEIGHT = 64
@@ -22,10 +24,7 @@ const Desktop: FC = () => {
 
   return (
     <>
-      {/* Note (amiller68): These Divs replace the header so we can have a sidebar*/}
-
-      <div className="absolute left-0 max-w-sm h-screen py-6 bg-[#000000] border-r border-r-2 border-[#6E6E6E]">
-        {/*<header className="fixed z-20 hidden w-full lg:block" style={{ height: HEADER_HEIGHT }}>*/}
+      <div className="relative self-start max-w-sm h-screen py-6 border-r border-r-2 border-[#6E6E6E] border-b border-b-2">
         <Link href="/" passHref>
           <div className="flex justify-center p-4">
             {/* TODO (amiller68): #LogoBanner Reference Actual SVG using raw.githubusercontent link */}
@@ -71,28 +70,8 @@ const Desktop: FC = () => {
           </div>
         </Link>
         <nav className={SIDE_NAV_CLASS} aria-label="Sidebar">
-          {/* <div className="mb-8 flex flex-col select-none whitespace-nowrap m-4 bg-[#1A1A1A] rounded-lg p-2"> */}
           <div className="mb-8 flex flex-col select-none whitespace-nowrap m-4">
-            {/* <div style={{ width: '3%', height: '10%', position: 'fixed', top: 0, left: 10 }}>
-              <Image
-                alt="FigSwap Logo"
-                src="https://raw.githubusercontent.com/banyancomputer/interface/master/.github/logos/figswap/logo.svg"
-                layout="fill"
-                objectFit="contain"
-              />
-            </div>
-            <div style={{ width: '10%', height: '10%', position: 'fixed', top: 5, left: '3.5%' }}>
-              <Image
-                src="https://raw.githubusercontent.com/banyancomputer/interface/master/.github/logos/figswap/banner.svg"
-                alt="FigSwap Banner"
-                layout="fill"
-                objectFit="contain"
-              />
-            </div> */}
-
             <Web3Status />
-
-            {/* Network Logo + Balance */}
             {/* Note (amiller68): #MetamaskOnly - For now the provider is Always Metamask */}
             {/*{library && (library.provider.isMetaMask || isCoinbaseWallet) && (*/}
             {library && account && chainId && (
@@ -101,27 +80,16 @@ const Desktop: FC = () => {
               </div>
             )}
           </div>
-          {/* Menu Items */}
 
           {menu.map((node) => {
             return <NavigationItem node={node} key={node.key} />
           })}
         </nav>
-        {/* TODO (amiller68): Disconnect Button */}
-        {/* {library && account && chainId && (
-          <div>
-            <NavigationItem
-              node={{
-                key: 'disconnect',
-                title: 'Disconnect',
-                action: deactivate,
-              }}
-              key={'disconnect'}
-            />
-          </div>
-        )} */}
+
+        <Button size="lg" onClick={deactivate} className="absolute bottom-0 border-none text-[#6E6E6E] bg-[#000]">
+          {i18n._(t`Disconnect`)}
+        </Button>
       </div>
-      <div style={{ height: HEADER_HEIGHT + 48, minHeight: HEADER_HEIGHT }} />
     </>
   )
 }
