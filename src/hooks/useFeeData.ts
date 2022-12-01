@@ -20,6 +20,7 @@ const useFeeData: UseFeeData = () => {
     maxFeePerGas: null,
     maxPriorityFeePerGas: null,
     gasPrice: null,
+    lastBaseFeePerGas: null,
   })
 
   const eip1559 =

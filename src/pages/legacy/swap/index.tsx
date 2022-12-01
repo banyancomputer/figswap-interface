@@ -1,4 +1,3 @@
-// Note (amiller68): #SdkChange / #SdkPublish
 import { Currency, JSBI, Token, Trade as V2Trade, TradeType } from '@figswap/core-sdk'
 import { CogIcon, ExclamationIcon } from '@heroicons/react/outline'
 import { CheckIcon } from '@heroicons/react/solid'

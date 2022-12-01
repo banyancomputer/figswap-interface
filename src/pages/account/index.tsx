@@ -1,10 +1,9 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { Feature } from 'app/enums'
 import ActionsModal from 'app/features/portfolio/ActionsModal'
-import { BentoBalances, WalletBalances } from 'app/features/portfolio/AssetBalances/bentoAndWallet'
+import { WalletBalances } from 'app/features/portfolio/AssetBalances/bentoAndWallet'
 import HeaderDropdown from 'app/features/portfolio/HeaderDropdown'
-import { classNames, featureEnabled } from 'app/functions'
+import { classNames } from 'app/functions'
 import TridentLayout, { TridentBody, TridentHeader } from 'app/layouts/Trident'
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
@@ -18,7 +17,7 @@ const Portfolio = () => {
   const account = router.query.account as string
   const chainId = router.query.account ? Number(router.query.chainId) : undefined
 
-  const bentoBoxEnabled = featureEnabled(Feature.BENTOBOX, chainId)
+  // const bentoBoxEnabled = featureEnabled(Feature.BENTOBOX, chainId)
 
   if (!account || !chainId) return null
 
@@ -28,11 +27,8 @@ const Portfolio = () => {
       <TridentHeader pattern="bg-chevron">
         <HeaderDropdown account={account} chainId={chainId} />
       </TridentHeader>
-      <TridentBody
-        className={classNames('flex flex-col gap-10 lg:grid lg:gap-4', bentoBoxEnabled ? 'grid-cols-2' : 'grid-cols-1')}
-      >
+      <TridentBody className={classNames('flex flex-col gap-10 lg:grid lg:gap-4', 'grid-cols-1')}>
         <WalletBalances account={account} chainId={chainId} />
-        {bentoBoxEnabled && <BentoBalances account={account} chainId={chainId} />}
       </TridentBody>
       <ActionsModal />
     </>

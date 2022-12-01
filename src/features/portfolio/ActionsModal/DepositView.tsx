@@ -3,12 +3,10 @@ import { ArrowDownIcon } from '@heroicons/react/solid'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import AssetInput from 'app/components/AssetInput'
-import Button from 'app/components/Button'
 import { BentoboxIcon } from 'app/components/Icon'
 import HeadlessUiModal from 'app/components/Modal/HeadlessUIModal'
 import Typography from 'app/components/Typography'
 import { useBalancesSelectedCurrency } from 'app/features/portfolio/useBalancesDerivedState'
-import TridentApproveGate from 'app/features/trident/TridentApproveGate'
 import { tryParseAmount } from 'app/functions'
 import { useBentoBox, useBentoBoxContract } from 'app/hooks'
 import { useBentoRebase } from 'app/hooks/useBentoRebases'
@@ -78,14 +76,14 @@ const DepositView: FC<DepositViewProps> = ({ onClose, onBack }) => {
         </div>
         <div className="flex flex-col gap-1">
           <Typography variant="h3" className={value ? 'text-high-emphesis' : 'text-secondary'} weight={700}>
-            {(valuePlusBalance)?.toSignificant(6)}
+            {valuePlusBalance?.toSignificant(6)}
           </Typography>
           <Typography variant="xxs" className="text-secondary">
             {i18n._(t`Total in BentoBox`)}
           </Typography>
         </div>
       </HeadlessUiModal.BorderedContent>
-      <TridentApproveGate inputAmounts={[valueCA]} tokenApproveOn={bentoboxContract?.address}>
+      {/* <TridentApproveGate inputAmounts={[valueCA]} tokenApproveOn={bentoboxContract?.address}>
         {({ approved, loading }) => {
           const disabled = !!error || !approved || loading || attemptingTxn
           const buttonText = error ? error : i18n._(t`Confirm Deposit`)
@@ -98,7 +96,7 @@ const DepositView: FC<DepositViewProps> = ({ onClose, onBack }) => {
             </Button>
           )
         }}
-      </TridentApproveGate>
+      </TridentApproveGate> */}
     </div>
   )
 }

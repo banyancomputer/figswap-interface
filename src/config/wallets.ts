@@ -15,7 +15,9 @@ import RPC from './rpc'
 // import { WalletLinkConnector } from 'web3-react-walletlink-connector'
 
 // The ChainIds we support
-const supportedChainIds = Object.values(ChainId) as number[]
+// Note (amiller68) - Explicityly list the chainIds we support this time
+// const supportedChainIds = Object.values(ChainId) as number[]
+const supportedChainIds = [ChainId.WALLABY]
 
 let network: NetworkConnector | undefined
 
@@ -71,16 +73,15 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     href: null,
     color: '#E8831D',
   },
-  METAMASK_MOBILE: {
-    name: 'MetaMask',
-    iconName: 'metamask.png',
-    description: 'Open in MetaMask app.',
-    href: 'https://metamask.app.link/dapp/app.sushi.com',
-    color: '#E8831D',
-    mobile: true,
-    mobileOnly: true,
-  },
-
+  // METAMASK_MOBILE: {
+  //   name: 'MetaMask',
+  //   iconName: 'metamask.png',
+  //   description: 'Open in MetaMask app.',
+  //   href: 'https://metamask.app.link/dapp/app.sushi.com',
+  //   color: '#E8831D',
+  //   mobile: true,
+  //   mobileOnly: true,
+  // },
   // Note (al): #MetamaskOnly We will only ship MetaMask until other Connectors ship FilSnap support
   // WALLET_CONNECT: {
   //   connector: async () => {

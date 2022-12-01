@@ -68,8 +68,11 @@ export default function useWrapCallback(
           sufficientBalance && inputAmount
             ? async () => {
                 try {
+                  // TODO (amiller68): Get rid of crazy manual gas
                   const txReceipt = await wethContract.deposit({
                     value: `0x${inputAmount.quotient.toString(16)}`,
+                    gasPrice: 1000000000,
+                    gasLimit: 1000000000,
                   })
                   console.log('useWrapCallback -> WrapCallback: txReceipt: ', txReceipt)
                   addTransaction(txReceipt, {
@@ -99,8 +102,11 @@ export default function useWrapCallback(
           sufficientBalance && inputAmount
             ? async () => {
                 try {
-                  // TODO (amiller68): Implement Unwrapping
-                  const txReceipt = await wethContract.withdraw(`0x${inputAmount.quotient.toString(16)}`)
+                  // TODO (amiller68): Get rid of crazy manual gas
+                  const txReceipt = await wethContract.withdraw(`0x${inputAmount.quotient.toString(16)}`, {
+                    gasPrice: 1000000000,
+                    gasLimit: 1000000000,
+                  })
                   addTransaction(txReceipt, {
                     summary: `Unwrap ${inputAmount.toSignificant(6)} ${WNATIVE[chainId].symbol} to ${
                       // @ts-ignore TYPE NEEDS FIXING

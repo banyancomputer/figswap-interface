@@ -96,7 +96,7 @@ export const WalletBalances = ({ account, chainId }: Balances) => {
       const { currency } = row.values.asset
       dispatch(
         setBalancesState({
-          currency: currency.isNative ? 'ETH' : row.values.asset.currency.address,
+          currency: currency.isNative ? currency.symbol ?? 'FIL' : row.values.asset.currency.address,
           activeModal: ActiveModal.WALLET_MENU,
         })
       )
