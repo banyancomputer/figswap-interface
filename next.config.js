@@ -1,9 +1,5 @@
-const withPWA = require('next-pwa')
-const runtimeCaching = require('next-pwa/cache')
 const linguiConfig = require('./lingui.config.js')
 const defaultTheme = require('tailwindcss/defaultTheme')
-
-const { ChainId } = require('@figswap/core-sdk')
 
 const { locales, sourceLocale } = linguiConfig
 const { screens } = defaultTheme
@@ -17,7 +13,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-const { withSentryConfig } = require('@sentry/nextjs')
+// TODO (amiller68) - #Sentry
+// const { withSentryConfig } = require('@sentry/nextjs')
 
 // @ts-check
 
@@ -60,6 +57,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/find',
+        destination: '/',
+        permanent: true,
+      },
+      {
         source: '/',
         destination: '/swap',
         permanent: true,
@@ -91,16 +93,8 @@ const nextConfig = {
         destination: '/legacy/add/:token*',
       },
       {
-        source: '/open-order',
-        destination: '/limit-order/open-order',
-      },
-      {
         source: '/pool',
         destination: '/legacy/pool',
-      },
-      {
-        source: '/find',
-        destination: '/legacy/find',
       },
       {
         source: '/me',
@@ -115,24 +109,26 @@ const nextConfig = {
   },
   // serverRuntimeConfig: {},
   publicRuntimeConfig: {
-    breakpoints: screens
+    breakpoints: screens,
   },
 }
 
-const SentryWebpackPluginOptions = {
-  // Additional config options for the Sentry Webpack plugin. Keep in mind that
-  // the following options are set automatically, and overriding them is not
-  // recommended:
-  //   release, url, org, project, authToken, configFile, stripPrefix,
-  //   urlPrefix, include, ignore
-  // silent: true, // Suppresses all logs
-  // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options.
-}
+// TODO (amiller68) - #Sentry
+// const SentryWebpackPluginOptions = {
+//   // Additional config options for the Sentry Webpack plugin. Keep in mind that
+//   // the following options are set automatically, and overriding them is not
+//   // recommended:
+//   //   release, url, org, project, authToken, configFile, stripPrefix,
+//   //   urlPrefix, include, ignore
+//   // silent: true, // Suppresses all logs
+//   // For all available options, see:
+//   // https://github.com/getsentry/sentry-webpack-plugin#options.
+// }
 
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
-module.exports = withSentryConfig(withBundleAnalyzer(nextConfig), SentryWebpackPluginOptions)
+// module.exports = withSentryConfig(withBundleAnalyzer(nextConfig), SentryWebpackPluginOptions)
 
-// Don't delete this console log, useful to see the config in Vercel deployments
-// console.log('next.config.js', JSON.stringify(module.exports, null, 2))
+module.exports = withBundleAnalyzer(nextConfig)
+
+console.log('next.config.js', JSON.stringify(module.exports, null, 2))

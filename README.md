@@ -37,6 +37,12 @@ import { ChainId } from `../sdk/core-sdk/ChainId`
 
 `#WallabyOnly`: Designates where a line supporting chains other than Wallaby has been deprecated and commented out - Should be used with #FilecoinMainnet TODO tag for guiding Mainnet implementation
 
+Quality of Life Updates:
+
+- [ ] `#Sentry` Indicates where Sentry has been deprecated from Sushi's deployment. We need to figure out our own config and implement it
+- [ ] `#Jest` We have not even tried using the test framework they have in place, we need to research it for speeding up dev later
+- [ ] `#StrAPI` The original fork used StrAPI for some media (not really sure what) but this might be something to look into
+
 Backend TODOs and Tags:
 
 - [ ] `#FilecoinManinnet` Where Implementation of Filecoin is required for Production

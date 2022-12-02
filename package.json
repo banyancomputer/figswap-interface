@@ -5,6 +5,7 @@
   "scripts": {
     "analyze": "ANALYZE=true yarn build && serve .next -n",
     "build": "yarn lingui && next build",
+    "bild": "next build",
     "circular": "madge --circular src --extensions ts,tsx,js,jsx",
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "e2e": "concurrently -k -s first -n \"app,e2e\" \"yarn dev\" \"yarn e2e:safe\"",
@@ -93,9 +94,6 @@
     "@popperjs/core": "^2.10.0",
     "@ramp-network/ramp-instant-sdk": "^2.5.0",
     "@reduxjs/toolkit": "^1.8.0",
-    "@sentry/nextjs": "^7.0.0",
-    "@sentry/react": "^7.0.0",
-    "@sentry/tracing": "^7.0.0",
     "@sushiswap/bentobox-sdk": "1.0.0-canary.119",
     "@sushiswap/chainlink-whitelist": "0.2.8",
     "@sushiswap/core": "^2.0.0-canary.1",

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from 'state/hooks'
 
 import { useAddPopup } from '../application/hooks'
 import { checkedTransaction, finalizeTransaction, updatePrivateTxStatus } from './actions'
-import { sendRevertTransactionLog } from './sentryLogger'
+// import { sendRevertTransactionLog } from './sentryLogger'
 
 export default function Updater() {
   const { chainId } = useActiveWeb3React()
@@ -57,7 +57,9 @@ export default function Updater() {
       )
 
       if (receipt.status === 0) {
-        sendRevertTransactionLog(hash, state.lastRouteInfo.payload.info)
+        console.error('Transaction failed', hash)
+        // TODO (amiller68): #Sentry
+        // sendRevertTransactionLog(hash, state.lastRouteInfo.payload.info)
       }
 
       addPopup(
@@ -68,7 +70,8 @@ export default function Updater() {
         DEFAULT_TXN_DISMISS_MS
       )
     },
-    [addPopup, dispatch, transactions, state.lastRouteInfo]
+    // [addPopup, dispatch, transactions, state.lastRouteInfo]
+    [addPopup, dispatch, transactions]
   )
 
   return (
