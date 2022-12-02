@@ -48,14 +48,14 @@ import { SwapProps } from 'pages/swap'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft } from 'react-feather'
 
-import { SwapProps } from '../../swap'
-
-type Props = {
-  placeholderSlippage?: Percent
-  trident?: boolean
-  className?: string
-}
-const Swap = ({ banners, placeholderSlippage, trident = false, inputCurrency, outputCurrency }: SwapProps) => {
+const Swap = ({
+  banners,
+  placeholderSlippage,
+  className,
+  trident = false,
+  inputCurrency,
+  outputCurrency,
+}: SwapProps) => {
   const { i18n } = useLingui()
   const loadedUrlParams = useDefaultsFromURLSearch()
   const { account, chainId } = useActiveWeb3React()
