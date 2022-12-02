@@ -3,7 +3,6 @@ import { Contract } from '@ethersproject/contracts'
 import { useAllTransactions } from 'app/state/transactions/hooks'
 import { useMemo } from 'react'
 
-
 export enum BentoApprovalState {
   UNKNOWN,
   NOT_APPROVED,

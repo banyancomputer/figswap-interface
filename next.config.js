@@ -115,7 +115,7 @@ const nextConfig = {
   },
   // serverRuntimeConfig: {},
   publicRuntimeConfig: {
-    breakpoints: screens
+    breakpoints: screens,
   },
 }
 

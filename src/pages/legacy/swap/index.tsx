@@ -4,6 +4,8 @@ import { CheckIcon } from '@heroicons/react/solid'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Banner from 'app/components/Banner'
+// Note (amiller68) - #SdkChange / #SdkPublish
+// import { Percent } from '@sushiswap/core-sdk'
 import Button from 'app/components/Button'
 import CloseIcon from 'app/components/CloseIcon'
 import { HeadlessUiModal } from 'app/components/Modal'
@@ -21,10 +23,9 @@ import SwapGasFeeInputs from 'app/features/legacy/swap/SwapGasFeeInputs'
 import UnsupportedCurrencyFooter from 'app/features/legacy/swap/UnsupportedCurrencyFooter'
 // import HeaderNew from 'app/features/trade/HeaderNew'
 import SwapAssetPanel from 'app/features/trident/swap/SwapAssetPanel'
-// import { classNames } from 'app/functions'
+import { computeFiatValuePriceImpact, warningSeverity } from 'app/functions'
 import confirmPriceImpactWithoutFee from 'app/functions/prices'
-import { warningSeverity } from 'app/functions/prices'
-import { computeFiatValuePriceImpact } from 'app/functions/trade'
+// import { classNames } from 'app/functions'
 import { useAllTokens, useCurrency } from 'app/hooks/Tokens'
 import { ApprovalState, useApproveCallbackFromTrade } from 'app/hooks/useApproveCallback'
 import useENSAddress from 'app/hooks/useENSAddress'
@@ -43,10 +44,9 @@ import { Field, setRecipient } from 'app/state/swap/actions'
 import { useDefaultsFromURLSearch, useDerivedSwapInfo, useSwapActionHandlers, useSwapState } from 'app/state/swap/hooks'
 import { useExpertModeManager, useUserSingleHopOnly, useUserSushiGuard } from 'app/state/user/hooks'
 import { NextSeo } from 'next-seo'
+import { SwapProps } from 'pages/swap'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft } from 'react-feather'
-
-import { SwapProps } from '../../swap'
 
 const Swap = ({
   banners,
@@ -57,12 +57,9 @@ const Swap = ({
   outputCurrency,
 }: SwapProps) => {
   const { i18n } = useLingui()
-
   const loadedUrlParams = useDefaultsFromURLSearch()
   const { account, chainId } = useActiveWeb3React()
-
   const defaultTokens = useAllTokens()
-
   const [isExpertMode] = useExpertModeManager()
   const { independentField, typedValue, recipient } = useSwapState()
   const { v2Trade, parsedAmount, currencies, inputError: swapInputError, allowedSlippage, to } = useDerivedSwapInfo()
@@ -91,7 +88,6 @@ const Swap = ({
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [userUseSushiGuard, setUserUseSushiGuard] = useUserSushiGuard()
   const walletSupportsSushiGuard = useWalletSupportsSushiGuard()
-
   const [dismissTokenWarning, setDismissTokenWarning] = useState<boolean>(false)
   const urlLoadedTokens: Token[] = useMemo(
     () => [loadedInputCurrency, loadedOutputCurrency]?.filter((c): c is Token => c?.isToken ?? false) ?? [],
@@ -103,7 +99,6 @@ const Swap = ({
   // from HeaderNew.tsx
   const getQuery = (input?: Currency, output?: Currency) => {
     if (!input && !output) return
-
     if (input && !output) {
       // @ts-ignore
       return { inputCurrency: input.address || 'ETH' }
@@ -118,7 +113,6 @@ const Swap = ({
     urlLoadedTokens.filter((token: Token) => {
       return !Boolean(token.address in defaultTokens)
     })
-
   const {
     wrapType,
     execute: onWrap,
@@ -126,10 +120,8 @@ const Swap = ({
   } = useWrapCallback(currencies[Field.INPUT], currencies[Field.OUTPUT], typedValue)
   const showWrap: boolean = wrapType !== WrapType.NOT_APPLICABLE
   const { address: recipientAddress } = useENSAddress(recipient)
-
   // Determine if this is a wrap or a trade
   const trade = showWrap ? undefined : v2Trade
-
   const parsedAmounts = useMemo(
     () =>
       // Note (amiller68) - If this is a wrap, the amounts are the same
@@ -146,7 +138,6 @@ const Swap = ({
     [independentField, parsedAmount, showWrap, trade]
   )
   console.log('parsedAmounts', parsedAmounts)
-
   // TODO (amiller68): #Research priceImpaces and How UDSC is used
   // Note (amiller68): I don't think useUSDCValue will work until we implement liquidity pools
   const fiatValueInput = useUSDCValue(parsedAmounts[Field.INPUT])
@@ -158,24 +149,20 @@ const Swap = ({
   const priceImpact = computeFiatValuePriceImpact(fiatValueInput, fiatValueOutput)
   console.log('priceImpact', priceImpact)
   const { onSwitchTokens, onCurrencySelection, onUserInput } = useSwapActionHandlers()
-
   const isValid = !swapInputError
   const dependentField: Field = independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT
-
   const handleTypeInput = useCallback(
     (value: string) => {
       onUserInput(Field.INPUT, value)
     },
     [onUserInput]
   )
-
   const handleTypeOutput = useCallback(
     (value: string) => {
       onUserInput(Field.OUTPUT, value)
     },
     [onUserInput]
   )
-
   // modal and loading
   const [{ showConfirm, tradeToConfirm, swapErrorMessage, attemptingTxn, txHash }, setSwapState] = useState<{
     showConfirm: boolean
@@ -190,7 +177,6 @@ const Swap = ({
     swapErrorMessage: undefined,
     txHash: undefined,
   })
-
   const formattedAmounts = {
     [independentField]: typedValue,
     [dependentField]: showWrap
@@ -198,19 +184,14 @@ const Swap = ({
         parsedAmounts[independentField]?.toExact() ?? ''
       : parsedAmounts[dependentField]?.toSignificant(6) ?? '',
   }
-
   const userHasSpecifiedInputOutput = Boolean(
     /* @ts-ignore TYPE NEEDS FIXING */
     currencies[Field.INPUT] && currencies[Field.OUTPUT] && parsedAmounts[independentField]?.greaterThan(JSBI.BigInt(0))
   )
-
   const routeNotFound = !trade?.route
-
   // check whether the user has approved the router on the input token
   const [approvalState, approveCallback] = useApproveCallbackFromTrade(trade, allowedSlippage)
-
   const signatureData = undefined
-
   const handleApprove = useCallback(async () => {
     await approveCallback()
     // if (signatureState === UseERC20PermitState.NOT_SIGNED && gatherPermitSignature) {
@@ -227,20 +208,16 @@ const Swap = ({
     // }
   }, [approveCallback])
   // }, [approveCallback, gatherPermitSignature, signatureState])
-
   // check if user has gone through approval process, used to show two step buttons, reset on token change
   const [approvalSubmitted, setApprovalSubmitted] = useState<boolean>(false)
-
   // mark when a user has submitted an approval, reset onTokenSelection for input field
   useEffect(() => {
     if (approvalState === ApprovalState.PENDING) {
       setApprovalSubmitted(true)
     }
   }, [approvalState, approvalSubmitted])
-
   // Checks if user has enabled the feature and if the wallet supports it
   const sushiGuardEnabled = useSushiGuardFeature()
-
   // the callback to execute the swap
   // TODO (amiller68): Investigate useSwapCallback
   const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(
@@ -252,9 +229,7 @@ const Swap = ({
     null,
     sushiGuardEnabled
   )
-
   const [singleHopOnly] = useUserSingleHopOnly()
-
   const handleSwap = useCallback(() => {
     if (!swapCallback) {
       return
@@ -278,7 +253,6 @@ const Swap = ({
           swapErrorMessage: undefined,
           txHash: hash,
         })
-
         gtag(
           'event',
           recipient === null
@@ -295,7 +269,6 @@ const Swap = ({
             ].join('/'),
           }
         )
-
         gtag('event', singleHopOnly ? 'Swap with multihop disabled' : 'Swap with multihop enabled', {
           event_category: 'Routing',
         })
@@ -321,7 +294,6 @@ const Swap = ({
     trade?.outputAmount?.currency?.symbol,
     singleHopOnly,
   ])
-
   // warnings on slippage
   // const priceImpactSeverity = warningSeverity(priceImpactWithoutFee);
   const priceImpactSeverity = useMemo(() => {
@@ -336,9 +308,7 @@ const Swap = ({
     )
   }, [priceImpact, trade])
   console.log('Price impact Severity', priceImpactSeverity)
-
   const isArgentWallet = useIsArgentWallet()
-
   // show approve flow when: no error on inputs, not approved or pending, or approved in current session
   // never show if price impact is above threshold in non expert mode
   const showApproveFlow =
@@ -348,7 +318,6 @@ const Swap = ({
       approvalState === ApprovalState.PENDING ||
       (approvalSubmitted && approvalState === ApprovalState.APPROVED)) &&
     !(priceImpactSeverity > 3 && !isExpertMode)
-
   const handleConfirmDismiss = useCallback(() => {
     setSwapState({
       showConfirm: false,
@@ -362,7 +331,6 @@ const Swap = ({
       onUserInput(Field.INPUT, '')
     }
   }, [attemptingTxn, onUserInput, swapErrorMessage, tradeToConfirm, txHash])
-
   const handleAcceptChanges = useCallback(() => {
     setSwapState({
       tradeToConfirm: trade,
@@ -372,7 +340,6 @@ const Swap = ({
       showConfirm,
     })
   }, [attemptingTxn, showConfirm, swapErrorMessage, trade, txHash])
-
   const handleInputSelect = useCallback(
     (inputCurrency: Currency) => {
       setApprovalSubmitted(false) // reset 2 step UI for approvals
@@ -380,16 +347,13 @@ const Swap = ({
     },
     [onCurrencySelection]
   )
-
   const handleOutputSelect = useCallback(
     (outputCurrency: Currency) => {
       onCurrencySelection(Field.OUTPUT, outputCurrency)
     },
     [onCurrencySelection]
   )
-
   const swapIsUnsupported = useIsSwapUnsupported(currencies?.INPUT, currencies?.OUTPUT)
-
   const priceImpactCss = useMemo(() => {
     switch (priceImpactSeverity) {
       case 0:
@@ -403,7 +367,6 @@ const Swap = ({
         return 'text-red'
     }
   }, [priceImpactSeverity])
-
   return (
     <>
       <NextSeo title="Swap" />
@@ -426,8 +389,6 @@ const Swap = ({
         tokens={importTokensNotInDefault}
         onConfirm={handleConfirmTokenWarning}
       />
-
-      {/* this is the settings menu */}
       {showSettings ? (
         <SwapLayoutCard>
           <div className="px-2">
@@ -490,7 +451,7 @@ const Swap = ({
                   <HeadlessUiModal.BorderedContent className="flex flex-col gap-3">
                     <Typography variant="sm" weight={700} className="text-white">
                       {i18n._(t`Expert mode turns off the confirm transaction prompt and allows high slippage trades
-                                that often result in bad rates and lost funds.`)}
+                              that often result in bad rates and lost funds.`)}
                     </Typography>
                   </HeadlessUiModal.BorderedContent>
                   <div className="flex flex-col gap-4 items-center">
@@ -605,7 +566,6 @@ const Swap = ({
                 {singleHopOnly && i18n._(t`Try enabling multi-hop trades`)}
               </Typography>
             )}
-
             {swapIsUnsupported ? (
               <Button color="red" disabled fullWidth className="">
                 {i18n._(t`Unsupported Asset`)}
@@ -714,7 +674,6 @@ const Swap = ({
           </div>
         </SwapLayoutCard>
       )}
-
       <Banner banners={banners} />
     </>
   )

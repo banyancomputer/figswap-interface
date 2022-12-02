@@ -21,7 +21,7 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
 export const ADDITIONAL_BASES: {
   [chainId: number]: { [tokenAddress: string]: Token[] }
 } = {
-  // ex: 
+  // ex:
   // [ChainId.ETHEREUM]: {
   //   [ETHEREUM.FEI.address]: [ETHEREUM.DPI],
   //   [ETHEREUM.FRAX.address]: [ETHEREUM.FXS],
@@ -48,23 +48,16 @@ export const CUSTOM_BASES: {
  * These tokens should have good liquidity on FigSwap
  */
 export const COMMON_BASES: ChainTokenList = {
-  [ChainId.WALLABY]: [
-    WNATIVE[ChainId.WALLABY], USDC[ChainId.WALLABY]
-  ]
+  [ChainId.WALLABY]: [WNATIVE[ChainId.WALLABY], USDC[ChainId.WALLABY]],
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   ...WRAPPED_NATIVE_ONLY,
-  [ChainId.WALLABY]: [
-    WNATIVE[ChainId.WALLABY],
-    USDC[ChainId.WALLABY],
-  ]
+  [ChainId.WALLABY]: [WNATIVE[ChainId.WALLABY], USDC[ChainId.WALLABY]],
 }
 
 // These are the tokens that are pinned to the top of the list in the token selector
 export const PINNED_PAIRS: { readonly [chainId: number]: [Token, Token][] } = {
-  [ChainId.WALLABY]: [
-    [USDC[ChainId.WALLABY], WNATIVE[ChainId.WALLABY]],
-  ],
+  [ChainId.WALLABY]: [[USDC[ChainId.WALLABY], WNATIVE[ChainId.WALLABY]]],
 }

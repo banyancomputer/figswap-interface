@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FC, Fragment, useCallback, useRef } from 'react'
 
-
 interface NavigationItem {
   node: MenuItem
 }
@@ -50,16 +49,13 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
         onClick={action}
         weight={700}
         variant="sm"
-        className={classNames(
-          'hover:text-white active:text-white text-xl font-bold py-5 px-4 flex gap-3'
-        )}
+        className={classNames('hover:text-white active:text-white text-xl font-bold py-5 px-4 flex gap-3')}
       >
         {!isDesktop && node.icon}
         {node.title}
       </Typography>
     )
   }
-
 
   return (
     <Popover key={node.key} className="relative flex">
