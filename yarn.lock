@@ -1057,9 +1057,9 @@
     tiny-warning "^1.0.3"
 
 "@coinbase/wallet-sdk@^3.0.4":
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.6.1.tgz#b1c2c98f5ab0e859787bee96f9fe42eadb0c9174"
-  integrity sha512-mEBGSoUN3eBnUJvqr+K/Sfc7idqEXp5enyS31WHUWK3xo0faSoGk5b/yV9NFi5/tIyKjl8E/nTJ2dH0DtIl/PA==
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.6.2.tgz#e8633001136e0236a746f6462c0dff2f881db343"
+  integrity sha512-HzxajB+qS+G9//c+th5uJ8KSt+jQ6/U+cgL9Sv89Wx6Mif+Lg5HxGtc6JQcIdHuYk9AFX+nXNSXtTGRdpHkdDg==
   dependencies:
     "@metamask/safe-event-emitter" "2.0.0"
     "@solana/web3.js" "1.52.0"
@@ -1742,10 +1742,10 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
-"@figswap/core-sdk@0.0.0-canary.1":
-  version "0.0.0-canary.1"
-  resolved "https://registry.yarnpkg.com/@figswap/core-sdk/-/core-sdk-0.0.0-canary.1.tgz#bf18723e0f44aadfad8fda0e41d49794d45691ba"
-  integrity sha512-IdfbaiyW0ewLxf0hrfqHzbugUilcLaoDIifmVLShIVeXetJmRJkAZ9FzvjvjXKqJo4E61FxpMDKQFGQJYqKXeg==
+"@figswap/core-sdk@0.0.0-canary.2":
+  version "0.0.0-canary.2"
+  resolved "https://registry.yarnpkg.com/@figswap/core-sdk/-/core-sdk-0.0.0-canary.2.tgz#0b57114a9e9f3ba0802faeecbe0a0545f78682e2"
+  integrity sha512-oHVzhDFcSmet/RgkOIWOoh6Aa1JAOToLyHlksnfJWqHyE8ihiWBJK1ugHK+H8J+2BNhyj0/yZ/0vIB2+5yHuIA==
   dependencies:
     "@ethersproject/address" "^5.4.0"
     "@ethersproject/bignumber" "^5.4.0"
