@@ -77,10 +77,10 @@ class MiniRpcProvider implements AsyncSendable {
 
     /*
      * Note (amiller68): Lotus FEVM RPCs don't support Batch calls
-      * See issue: https://github.com/filecoin-project/ref-fvm/issues/1047
-      * In order to reimplement batch calls, uncomment the code below and remove my janky replacement 
-      * below
-    */
+     * See issue: https://github.com/filecoin-project/ref-fvm/issues/1047
+     * In order to reimplement batch calls, uncomment the code below and remove my janky replacement
+     * below
+     */
     // let response: Response
     // try {
     //   response = await fetch(this.url, {

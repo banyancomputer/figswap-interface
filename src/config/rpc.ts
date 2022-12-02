@@ -1,6 +1,6 @@
 import { ChainId } from '@figswap/core-sdk'
 
-  // TODO (amiller68): #FilecoinMainnet - Add Filecoin Mainnet
+// TODO (amiller68): #FilecoinMainnet - Add Filecoin Mainnet
 
 // Mapping of ChainId to RPC URL
 const RPC = {

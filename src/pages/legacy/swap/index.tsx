@@ -19,9 +19,9 @@ import SwapDetails from 'app/features/legacy/swap/SwapDetails'
 import SwapGasFeeInputs from 'app/features/legacy/swap/SwapGasFeeInputs'
 import UnsupportedCurrencyFooter from 'app/features/legacy/swap/UnsupportedCurrencyFooter'
 import SwapAssetPanel from 'app/features/trident/swap/SwapAssetPanel'
+import { computeFiatValuePriceImpact, warningSeverity } from 'app/functions'
 import confirmPriceImpactWithoutFee from 'app/functions/prices'
-import { warningSeverity } from 'app/functions/prices'
-import { computeFiatValuePriceImpact } from 'app/functions/trade'
+// import { classNames } from 'app/functions'
 import { useAllTokens, useCurrency } from 'app/hooks/Tokens'
 import { ApprovalState, useApproveCallbackFromTrade } from 'app/hooks/useApproveCallback'
 import useENSAddress from 'app/hooks/useENSAddress'
@@ -39,6 +39,7 @@ import { Field, setRecipient } from 'app/state/swap/actions'
 import { useDefaultsFromURLSearch, useDerivedSwapInfo, useSwapActionHandlers, useSwapState } from 'app/state/swap/hooks'
 import { useExpertModeManager, useUserSingleHopOnly } from 'app/state/user/hooks'
 import { NextSeo } from 'next-seo'
+import { SwapProps } from 'pages/swap'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft } from 'react-feather'
 
@@ -46,12 +47,9 @@ import { SwapProps } from '../../swap'
 
 const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, outputCurrency }: SwapProps) => {
   const { i18n } = useLingui()
-
   const loadedUrlParams = useDefaultsFromURLSearch()
   const { account } = useActiveWeb3React()
-
   const defaultTokens = useAllTokens()
-
   const [isExpertMode] = useExpertModeManager()
   const { independentField, typedValue, recipient } = useSwapState()
   const { v2Trade, parsedAmount, currencies, inputError: swapInputError, allowedSlippage, to } = useDerivedSwapInfo()
@@ -78,9 +76,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
   const [expertMode, toggleExpertMode] = useExpertModeManager()
   // const [singleHopOnly1, setSingleHopOnly1] = useUserSingleHopOnly()
   const [showConfirmation, setShowConfirmation] = useState(false)
-  // const [userUseSushiGuard, setUserUseSushiGuard] = useUserSushiGuard()
-  // const walletSupportsSushiGuard = useWalletSupportsSushiGuard()
-
   const [dismissTokenWarning, setDismissTokenWarning] = useState<boolean>(false)
   const urlLoadedTokens: Token[] = useMemo(
     () => [loadedInputCurrency, loadedOutputCurrency]?.filter((c): c is Token => c?.isToken ?? false) ?? [],
@@ -92,7 +87,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
   // from HeaderNew.tsx
   const getQuery = (input?: Currency, output?: Currency) => {
     if (!input && !output) return
-
     if (input && !output) {
       // @ts-ignore
       return { inputCurrency: input.address || 'ETH' }
@@ -107,7 +101,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
     urlLoadedTokens.filter((token: Token) => {
       return !Boolean(token.address in defaultTokens)
     })
-
   const {
     wrapType,
     execute: onWrap,
@@ -115,9 +108,7 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
   } = useWrapCallback(currencies[Field.INPUT], currencies[Field.OUTPUT], typedValue)
   const showWrap: boolean = wrapType !== WrapType.NOT_APPLICABLE
   const { address: recipientAddress } = useENSAddress(recipient)
-
   const trade = showWrap ? undefined : v2Trade
-
   const parsedAmounts = useMemo(
     () =>
       // Note (amiller68) - If this is a wrap, the amounts are the same
@@ -133,23 +124,19 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
           },
     [independentField, parsedAmount, showWrap, trade]
   )
-
   const fiatValueInput = useUSDCValue(parsedAmounts[Field.INPUT])
   const [showSettings, setShowSettings] = React.useState(false)
   const fiatValueOutput = useUSDCValue(parsedAmounts[Field.OUTPUT])
   const priceImpact = computeFiatValuePriceImpact(fiatValueInput, fiatValueOutput)
   const { onSwitchTokens, onCurrencySelection, onUserInput } = useSwapActionHandlers()
-
   const isValid = !swapInputError
   const dependentField: Field = independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT
-
   const handleTypeInput = useCallback(
     (value: string) => {
       onUserInput(Field.INPUT, value)
     },
     [onUserInput]
   )
-
   const handleTypeOutput = useCallback(
     (value: string) => {
       onUserInput(Field.OUTPUT, value)
@@ -170,7 +157,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
     swapErrorMessage: undefined,
     txHash: undefined,
   })
-
   const formattedAmounts = {
     [independentField]: typedValue,
     [dependentField]: showWrap
@@ -178,36 +164,28 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
         parsedAmounts[independentField]?.toExact() ?? ''
       : parsedAmounts[dependentField]?.toSignificant(6) ?? '',
   }
-
   const userHasSpecifiedInputOutput = Boolean(
     /* @ts-ignore TYPE NEEDS FIXING */
     currencies[Field.INPUT] && currencies[Field.OUTPUT] && parsedAmounts[independentField]?.greaterThan(JSBI.BigInt(0))
   )
-
   const routeNotFound = !trade?.route
-
   // check whether the user has approved the router on the input token
   const [approvalState, approveCallback] = useApproveCallbackFromTrade(trade, allowedSlippage)
-
   const signatureData = undefined
-
   const handleApprove = useCallback(async () => {
     await approveCallback()
   }, [approveCallback])
 
   // check if user has gone through approval process, used to show two step buttons, reset on token change
   const [approvalSubmitted, setApprovalSubmitted] = useState<boolean>(false)
-
   // mark when a user has submitted an approval, reset onTokenSelection for input field
   useEffect(() => {
     if (approvalState === ApprovalState.PENDING) {
       setApprovalSubmitted(true)
     }
   }, [approvalState, approvalSubmitted])
-
   // Checks if user has enabled the feature and if the wallet supports it
   const sushiGuardEnabled = useSushiGuardFeature()
-
   // the callback to execute the swap
   const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(
     trade,
@@ -218,9 +196,7 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
     null,
     sushiGuardEnabled
   )
-
   const [singleHopOnly] = useUserSingleHopOnly()
-
   const handleSwap = useCallback(() => {
     if (!swapCallback) {
       return
@@ -244,7 +220,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
           swapErrorMessage: undefined,
           txHash: hash,
         })
-
         gtag(
           'event',
           recipient === null
@@ -261,7 +236,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
             ].join('/'),
           }
         )
-
         gtag('event', singleHopOnly ? 'Swap with multihop disabled' : 'Swap with multihop enabled', {
           event_category: 'Routing',
         })
@@ -287,7 +261,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
     trade?.outputAmount?.currency?.symbol,
     singleHopOnly,
   ])
-
   // warnings on slippage
   const priceImpactSeverity = useMemo(() => {
     const executionPriceImpact = trade?.priceImpact
@@ -301,9 +274,7 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
     )
   }, [priceImpact, trade])
   console.log('Price impact Severity', priceImpactSeverity)
-
   const isArgentWallet = useIsArgentWallet()
-
   // show approve flow when: no error on inputs, not approved or pending, or approved in current session
   // never show if price impact is above threshold in non expert mode
   const showApproveFlow =
@@ -313,7 +284,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
       approvalState === ApprovalState.PENDING ||
       (approvalSubmitted && approvalState === ApprovalState.APPROVED)) &&
     !(priceImpactSeverity > 3 && !isExpertMode)
-
   const handleConfirmDismiss = useCallback(() => {
     setSwapState({
       showConfirm: false,
@@ -327,7 +297,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
       onUserInput(Field.INPUT, '')
     }
   }, [attemptingTxn, onUserInput, swapErrorMessage, tradeToConfirm, txHash])
-
   const handleAcceptChanges = useCallback(() => {
     setSwapState({
       tradeToConfirm: trade,
@@ -337,7 +306,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
       showConfirm,
     })
   }, [attemptingTxn, showConfirm, swapErrorMessage, trade, txHash])
-
   const handleInputSelect = useCallback(
     (inputCurrency: Currency) => {
       setApprovalSubmitted(false) // reset 2 step UI for approvals
@@ -345,16 +313,13 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
     },
     [onCurrencySelection]
   )
-
   const handleOutputSelect = useCallback(
     (outputCurrency: Currency) => {
       onCurrencySelection(Field.OUTPUT, outputCurrency)
     },
     [onCurrencySelection]
   )
-
   const swapIsUnsupported = useIsSwapUnsupported(currencies?.INPUT, currencies?.OUTPUT)
-
   const priceImpactCss = useMemo(() => {
     switch (priceImpactSeverity) {
       case 0:
@@ -368,7 +333,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
         return 'text-red'
     }
   }, [priceImpactSeverity])
-
   return (
     <>
       <NextSeo title="Swap" />
@@ -391,8 +355,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
         tokens={importTokensNotInDefault}
         onConfirm={handleConfirmTokenWarning}
       />
-
-      {/* this is the settings menu */}
       {showSettings ? (
         <SwapLayoutCard>
           <div className="px-2">
@@ -455,7 +417,7 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
                   <HeadlessUiModal.BorderedContent className="flex flex-col gap-3">
                     <Typography variant="sm" weight={700} className="text-white">
                       {i18n._(t`Expert mode turns off the confirm transaction prompt and allows high slippage trades
-                                that often result in bad rates and lost funds.`)}
+                              that often result in bad rates and lost funds.`)}
                     </Typography>
                   </HeadlessUiModal.BorderedContent>
                   <div className="flex flex-col gap-4 items-center">
@@ -570,7 +532,6 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
                 {singleHopOnly && i18n._(t`Try enabling multi-hop trades`)}
               </Typography>
             )}
-
             {swapIsUnsupported ? (
               <Button color="red" disabled fullWidth className="">
                 {i18n._(t`Unsupported Asset`)}

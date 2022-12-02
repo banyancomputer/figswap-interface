@@ -185,7 +185,7 @@ export const getPoolHourBuckets = async (chainId: ChainId = ChainId.ETHEREUM, va
 // @ts-ignore TYPE NEEDS FIXING
 export const getPoolDayBuckets = async (chainId: ChainId = ChainId.ETHEREUM, variables): Promise<PoolBucket[]> => {
   const result: PoolBucketQueryResult[] = Object.values(
-    // @ts-ignore TYPE NEEDS FIXING 
+    // @ts-ignore TYPE NEEDS FIXING
     await fetcher(chainId, poolDaySnapshotsQuery, variables)
   )?.[0] as PoolBucketQueryResult[]
   return formatBuckets(result)

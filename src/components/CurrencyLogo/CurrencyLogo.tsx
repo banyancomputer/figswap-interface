@@ -6,7 +6,7 @@ import React, { FunctionComponent, useMemo } from 'react'
 
 import Logo, { UNKNOWN_ICON } from '../Logo'
 
-  // TODO (amiller68): #FilecoinMainnet
+// TODO (amiller68): #FilecoinMainnet
 
 const BLOCKCHAIN = {
   [ChainId.WALLABY]: 'wallaby',
