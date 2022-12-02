@@ -79,15 +79,8 @@ const useMenu: UseMenu = (collapse?: () => void) => {
       })
     }
 
-    if (account) {
-      menu.push({
-        key: 'portfolio',
-        title: i18n._(t`Portfolio`),
-        link: '/account',
-      })
-    }
-
     // If this is a mobile menu, add a collapse button
+    // We might not need this, since clicking outside the menu will collapse it
     if (collapse !== undefined) {
       menu.push({
         key: '•',
@@ -97,7 +90,7 @@ const useMenu: UseMenu = (collapse?: () => void) => {
     }
 
     return menu.filter((el) => Object.keys(el).length > 0)
-  }, [account, chainId, i18n, collapse])
+  }, [chainId, i18n, collapse])
 }
 
 export default useMenu

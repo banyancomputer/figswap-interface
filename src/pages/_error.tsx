@@ -1,16 +1,17 @@
-import * as Sentry from '@sentry/nextjs'
+// import * as Sentry from '@sentry/nextjs'
 import NextErrorComponent from 'next/error'
 import Head from 'next/head'
 
 // @ts-ignore
 const MyError = ({ statusCode, hasGetInitialPropsRun, err, title }) => {
-  if (!hasGetInitialPropsRun && err) {
-    // getInitialProps is not called in case of
-    // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
-    // err via _app.js so it can be captured
-    Sentry.captureException(err)
-    // Flushing is not required in this case as it only happens on the client
-  }
+  // TODO (amiller68): #Sentry
+  // if (!hasGetInitialPropsRun && err) {
+  //   // getInitialProps is not called in case of
+  //   // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
+  //   // err via _app.js so it can be captured
+  //   Sentry.captureException(err)
+  //   // Flushing is not required in this case as it only happens on the client
+  // }
 
   return (
     <div className="flex items-center justify-center w-full h-full ">
@@ -65,13 +66,12 @@ MyError.getInitialProps = async ({ res, err }) => {
   //    Boundaries: https://reactjs.org/docs/error-boundaries.html
 
   if (err) {
-    Sentry.captureException(err)
-
-    // Flushing before returning is necessary if deploying to Vercel, see
-    // https://vercel.com/docs/platform/limits#streaming-responses
-    await Sentry.flush(2000)
-
-    return errorInitialProps
+    // TODO (amiller68): #Sentry
+    // Sentry.captureException(err)
+    // // Flushing before returning is necessary if deploying to Vercel, see
+    // // https://vercel.com/docs/platform/limits#streaming-responses
+    // await Sentry.flush(2000)
+    // return errorInitialProps
   }
 
   // If this point is reached, getInitialProps was called without any

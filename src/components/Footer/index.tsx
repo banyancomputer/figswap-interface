@@ -2,13 +2,13 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { DiscordIcon, InstagramIcon, MediumIcon, TelegramIcon, TwitterIcon } from 'app/components/Icon'
 import Typography from 'app/components/Typography'
-import { useActiveWeb3React } from 'app/services/web3'
 import React from 'react'
 
 import Container from '../Container'
 
+// TODO (amiller68) - Language switcher
+
 const Footer = () => {
-  const { chainId } = useActiveWeb3React()
   const { i18n } = useLingui()
 
   return (

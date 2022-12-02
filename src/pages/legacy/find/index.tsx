@@ -23,6 +23,9 @@ import { NextSeo } from 'next-seo'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Plus } from 'react-feather'
 
+/* Note (amiller68): We eventually want to implement LP token imports, but for now this page is going to redirected to the swap page. */
+/* See next.config.js for the redirect. */
+
 enum Fields {
   TOKEN0 = 0,
   TOKEN1 = 1,

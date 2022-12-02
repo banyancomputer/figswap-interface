@@ -3,9 +3,6 @@ import { CogIcon, ExclamationIcon } from '@heroicons/react/outline'
 import { CheckIcon } from '@heroicons/react/solid'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import Banner from 'app/components/Banner'
-// Note (amiller68) - #SdkChange / #SdkPublish
-// import { Percent } from '@sushiswap/core-sdk'
 import Button from 'app/components/Button'
 import CloseIcon from 'app/components/CloseIcon'
 import { HeadlessUiModal } from 'app/components/Modal'
@@ -21,7 +18,6 @@ import SwapCallbackError from 'app/features/legacy/swap/SwapCallbackError'
 import SwapDetails from 'app/features/legacy/swap/SwapDetails'
 import SwapGasFeeInputs from 'app/features/legacy/swap/SwapGasFeeInputs'
 import UnsupportedCurrencyFooter from 'app/features/legacy/swap/UnsupportedCurrencyFooter'
-// import HeaderNew from 'app/features/trade/HeaderNew'
 import SwapAssetPanel from 'app/features/trident/swap/SwapAssetPanel'
 import { computeFiatValuePriceImpact, warningSeverity } from 'app/functions'
 import confirmPriceImpactWithoutFee from 'app/functions/prices'
@@ -34,7 +30,6 @@ import { useIsSwapUnsupported } from 'app/hooks/useIsSwapUnsupported'
 import useSushiGuardFeature from 'app/hooks/useSushiGuardFeature'
 import { useSwapCallback } from 'app/hooks/useSwapCallback'
 import { useUSDCValue } from 'app/hooks/useUSDCPrice'
-import useWalletSupportsSushiGuard from 'app/hooks/useWalletSupportsSushiGuard'
 import useWrapCallback, { WrapType } from 'app/hooks/useWrapCallback'
 import { SwapLayout, SwapLayoutCard } from 'app/layouts/SwapLayout'
 import TokenWarningModal from 'app/modals/TokenWarningModal'
@@ -42,23 +37,18 @@ import { useActiveWeb3React } from 'app/services/web3'
 import { useToggleSettingsMenu } from 'app/state/application/hooks'
 import { Field, setRecipient } from 'app/state/swap/actions'
 import { useDefaultsFromURLSearch, useDerivedSwapInfo, useSwapActionHandlers, useSwapState } from 'app/state/swap/hooks'
-import { useExpertModeManager, useUserSingleHopOnly, useUserSushiGuard } from 'app/state/user/hooks'
+import { useExpertModeManager, useUserSingleHopOnly } from 'app/state/user/hooks'
 import { NextSeo } from 'next-seo'
 import { SwapProps } from 'pages/swap'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft } from 'react-feather'
 
-const Swap = ({
-  banners,
-  placeholderSlippage,
-  className,
-  trident = false,
-  inputCurrency,
-  outputCurrency,
-}: SwapProps) => {
+import { SwapProps } from '../../swap'
+
+const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, outputCurrency }: SwapProps) => {
   const { i18n } = useLingui()
   const loadedUrlParams = useDefaultsFromURLSearch()
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
   const defaultTokens = useAllTokens()
   const [isExpertMode] = useExpertModeManager()
   const { independentField, typedValue, recipient } = useSwapState()
@@ -84,10 +74,8 @@ const Swap = ({
   ]
   const toggle = useToggleSettingsMenu()
   const [expertMode, toggleExpertMode] = useExpertModeManager()
-  const [singleHopOnly1, setSingleHopOnly1] = useUserSingleHopOnly()
+  // const [singleHopOnly1, setSingleHopOnly1] = useUserSingleHopOnly()
   const [showConfirmation, setShowConfirmation] = useState(false)
-  const [userUseSushiGuard, setUserUseSushiGuard] = useUserSushiGuard()
-  const walletSupportsSushiGuard = useWalletSupportsSushiGuard()
   const [dismissTokenWarning, setDismissTokenWarning] = useState<boolean>(false)
   const urlLoadedTokens: Token[] = useMemo(
     () => [loadedInputCurrency, loadedOutputCurrency]?.filter((c): c is Token => c?.isToken ?? false) ?? [],
@@ -120,7 +108,6 @@ const Swap = ({
   } = useWrapCallback(currencies[Field.INPUT], currencies[Field.OUTPUT], typedValue)
   const showWrap: boolean = wrapType !== WrapType.NOT_APPLICABLE
   const { address: recipientAddress } = useENSAddress(recipient)
-  // Determine if this is a wrap or a trade
   const trade = showWrap ? undefined : v2Trade
   const parsedAmounts = useMemo(
     () =>
@@ -137,17 +124,10 @@ const Swap = ({
           },
     [independentField, parsedAmount, showWrap, trade]
   )
-  console.log('parsedAmounts', parsedAmounts)
-  // TODO (amiller68): #Research priceImpaces and How UDSC is used
-  // Note (amiller68): I don't think useUSDCValue will work until we implement liquidity pools
   const fiatValueInput = useUSDCValue(parsedAmounts[Field.INPUT])
   const [showSettings, setShowSettings] = React.useState(false)
   const fiatValueOutput = useUSDCValue(parsedAmounts[Field.OUTPUT])
-  console.log('fiatValueInput', fiatValueInput)
-  console.log('fiatValueOutput', fiatValueOutput)
-  // Note (amiller68): Determines the price impact of making this trade in fiat value
   const priceImpact = computeFiatValuePriceImpact(fiatValueInput, fiatValueOutput)
-  console.log('priceImpact', priceImpact)
   const { onSwitchTokens, onCurrencySelection, onUserInput } = useSwapActionHandlers()
   const isValid = !swapInputError
   const dependentField: Field = independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT
@@ -163,7 +143,7 @@ const Swap = ({
     },
     [onUserInput]
   )
-  // modal and loading
+
   const [{ showConfirm, tradeToConfirm, swapErrorMessage, attemptingTxn, txHash }, setSwapState] = useState<{
     showConfirm: boolean
     tradeToConfirm: V2Trade<Currency, Currency, TradeType> | undefined
@@ -194,20 +174,8 @@ const Swap = ({
   const signatureData = undefined
   const handleApprove = useCallback(async () => {
     await approveCallback()
-    // if (signatureState === UseERC20PermitState.NOT_SIGNED && gatherPermitSignature) {
-    //   try {
-    //     await gatherPermitSignature()
-    //   } catch (error) {
-    //     // try to approve if gatherPermitSignature failed for any reason other than the user rejecting it
-    //     if (error?.code !== USER_REJECTED_TRANSACTION) {
-    //       await approveCallback()
-    //     }
-    //   }
-    // } else {
-    //   await approveCallback()
-    // }
   }, [approveCallback])
-  // }, [approveCallback, gatherPermitSignature, signatureState])
+
   // check if user has gone through approval process, used to show two step buttons, reset on token change
   const [approvalSubmitted, setApprovalSubmitted] = useState<boolean>(false)
   // mark when a user has submitted an approval, reset onTokenSelection for input field
@@ -219,7 +187,6 @@ const Swap = ({
   // Checks if user has enabled the feature and if the wallet supports it
   const sushiGuardEnabled = useSushiGuardFeature()
   // the callback to execute the swap
-  // TODO (amiller68): Investigate useSwapCallback
   const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(
     trade,
     allowedSlippage,
@@ -295,7 +262,6 @@ const Swap = ({
     singleHopOnly,
   ])
   // warnings on slippage
-  // const priceImpactSeverity = warningSeverity(priceImpactWithoutFee);
   const priceImpactSeverity = useMemo(() => {
     const executionPriceImpact = trade?.priceImpact
     console.log('Price impact Severity', executionPriceImpact, 'vs', priceImpact)
@@ -674,7 +640,6 @@ const Swap = ({
           </div>
         </SwapLayoutCard>
       )}
-      <Banner banners={banners} />
     </>
   )
 }

@@ -13,14 +13,15 @@ declare global {
   interface Window {
     walletLinkExtension?: any
     ethereum?: {
-      isCoinbaseWallet?: true
+      // Note (amiller68) - #MetamaskOnly
+      // isCoinbaseWallet?: true
       isMetaMask?: true
       on?: (...args: any[]) => void
       removeListener?: (...args: any[]) => void
       removeAllListeners?: (...args: any[]) => void
       autoRefreshOnNetworkChange?: boolean
     }
-    gamestop?: any
+    // gamestop?: any
     web3?: Record<string, unknown>
   }
 }

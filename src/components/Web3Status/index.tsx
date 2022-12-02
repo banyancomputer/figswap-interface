@@ -15,17 +15,22 @@ import { useWeb3React } from 'web3-react-core'
 import Loader from '../Loader'
 import Typography from '../Typography'
 import Web3Connect from '../Web3Connect'
+import Web3Network from '../Web3Network'
 
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime
 }
 
-// TODO (amiller68): #AccountButtons make Web 3 Status look like design
-function Web3StatusInner() {
+export default function Web3Status() {
   const { i18n } = useLingui()
-  const { account, library } = useWeb3React()
-  const { ENSName, loading } = useENSName(account ?? undefined)
+
+  const { active, account, library, chainId } = useWeb3React()
+  const contextNetwork = useWeb3React(NetworkContextName)
+
+  const toggleWalletModal = useWalletModalToggle()
+
+  const { ENSName } = useENSName(account ?? undefined)
   const allTransactions = useAllTransactions()
   const sortedRecentTransactions = useMemo(() => {
     const txs = Object.values(allTransactions)
@@ -33,24 +38,24 @@ function Web3StatusInner() {
   }, [allTransactions])
   const pending = sortedRecentTransactions.filter(isTxPending).map((tx) => tx.hash)
   const hasPendingTransactions = !!pending.length
-  const toggleWalletModal = useWalletModalToggle()
+  const confirmed = sortedRecentTransactions.filter(isTxConfirmed).map((tx) => tx.hash)
+  console.log('pending', pending)
 
-  if (account) {
-    return (
-      <div
-        id="web3-status-connected"
-        className="flex items-center gap-2 text-sm rounded-lg hover:bg-[#2E2E2E] hover:text-white p-4"
-        onClick={toggleWalletModal}
-      >
-        {hasPendingTransactions ? (
-          <div className="flex items-center justify-between gap-2">
-            <div>
-              {pending?.length} {i18n._(t`Pending`)}
-            </div>{' '}
-            <Loader stroke="white" />
-          </div>
-        ) : (
-          <>
+  if (!contextNetwork.active && !active) {
+    return null
+  }
+
+  return (
+    <>
+      <div className="mb-8 flex flex-col select-none whitespace-nowrap m-4">
+        {/* Show Davatar + Identifier if account is connected*/}
+        {/* Show Web3Connect Button if not */}
+        {account ? (
+          <div
+            id="web3-status-connected"
+            className="flex items-center gap-2 text-sm rounded-lg hover:bg-[#2E2E2E] hover:text-white p-4"
+            onClick={toggleWalletModal}
+          >
             <Davatar
               size={24}
               address={account}
@@ -76,44 +81,27 @@ function Web3StatusInner() {
                 {ENSName ? ENSName.toUpperCase() : shortenAddressNavbar(account)}
               </Typography>
             </div>
-          </>
+          </div>
+        ) : (
+          <Web3Connect
+            size="sm"
+            className="!bg-dark-900 bg-gradient-to-r from-pink/80 hover:from-pink to-purple/80 hover:to-purple text-white h-[38px]"
+          />
         )}
+        {/* Show the Network + Balance if the user is using a proper library + account + chainId */}
+        {library && account && chainId && <Web3Network />}
+        {/* Show lil thing below it all if they have any pending transactions */}
+        {hasPendingTransactions && (
+          <div className="flex items-center justify-between gap-2" onClick={toggleWalletModal}>
+            <div>
+              {pending?.length} {i18n._(t`Pending`)}
+            </div>{' '}
+            <Loader stroke="white" />
+          </div>
+        )}
+        {/* Wallet Modal launched by clicking on Davatar + Account button */}
+        <WalletModal ENSName={ENSName ?? undefined} pendingTransactions={pending} confirmedTransactions={confirmed} />
       </div>
-    )
-  } else {
-    return (
-      <Web3Connect
-        size="sm"
-        className="!bg-dark-900 bg-gradient-to-r from-pink/80 hover:from-pink to-purple/80 hover:to-purple text-white h-[38px]"
-      />
-    )
-  }
-}
-
-export default function Web3Status() {
-  const { active, account } = useWeb3React()
-  const contextNetwork = useWeb3React(NetworkContextName)
-
-  const { ENSName } = useENSName(account ?? undefined)
-
-  const allTransactions = useAllTransactions()
-
-  const sortedRecentTransactions = useMemo(() => {
-    const txs = Object.values(allTransactions)
-    return txs.filter(isTransactionRecent).sort(newTransactionsFirst)
-  }, [allTransactions])
-
-  const pending = sortedRecentTransactions.filter(isTxPending).map((tx) => tx.hash)
-  const confirmed = sortedRecentTransactions.filter(isTxConfirmed).map((tx) => tx.hash)
-
-  if (!contextNetwork.active && !active) {
-    return null
-  }
-
-  return (
-    <>
-      <Web3StatusInner />
-      <WalletModal ENSName={ENSName ?? undefined} pendingTransactions={pending} confirmedTransactions={confirmed} />
     </>
   )
 }
