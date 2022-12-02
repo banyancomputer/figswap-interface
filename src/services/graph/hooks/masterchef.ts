@@ -57,21 +57,21 @@ export function useMasterChefV2Farms({ chainId, swrConfig = undefined }: useFarm
 }
 
 export function useMiniChefFarms({ chainId, swrConfig = undefined }: useFarmsProps) {
-  const shouldFetch =
-    chainId &&
-    [
-      ChainId.MATIC,
-      ChainId.XDAI,
-      ChainId.HARMONY,
-      ChainId.ARBITRUM,
-      ChainId.CELO,
-      ChainId.MOONRIVER,
-      ChainId.FUSE,
-      ChainId.FANTOM,
-      ChainId.MOONBEAM,
-      ChainId.KAVA,
-      ChainId.METIS,
-    ].includes(chainId)
+  const shouldFetch = chainId
+  // chainId &&
+  // [
+  //   ChainId.MATIC,
+  //   ChainId.XDAI,
+  //   ChainId.HARMONY,
+  //   ChainId.ARBITRUM,
+  //   ChainId.CELO,
+  //   ChainId.MOONRIVER,
+  //   ChainId.FUSE,
+  //   ChainId.FANTOM,
+  //   ChainId.MOONBEAM,
+  //   ChainId.KAVA,
+  //   ChainId.METIS,
+  // ].includes(chainId)
   const { data } = useSWR(
     shouldFetch ? ['miniChefFarms', chainId] : null,
     (_, chainId) => getMiniChefFarms(chainId),
@@ -108,18 +108,18 @@ export function useMasterChefV2PairAddresses() {
 
 export function useMiniChefPairAddresses() {
   const { chainId } = useActiveWeb3React()
-  const shouldFetch =
-    chainId &&
-    [
-      ChainId.MATIC,
-      ChainId.XDAI,
-      ChainId.HARMONY,
-      ChainId.ARBITRUM,
-      ChainId.CELO,
-      ChainId.MOONRIVER,
-      ChainId.FUSE,
-      ChainId.FANTOM,
-    ].includes(chainId)
+  const shouldFetch = chainId
+  // chainId &&
+  // [
+  //   ChainId.MATIC,
+  //   ChainId.XDAI,
+  //   ChainId.HARMONY,
+  //   ChainId.ARBITRUM,
+  //   ChainId.CELO,
+  //   ChainId.MOONRIVER,
+  //   ChainId.FUSE,
+  //   ChainId.FANTOM,
+  // ].includes(chainId)
   return useSWR(shouldFetch ? ['miniChefPairAddresses', chainId] : null, (_, chainId) =>
     getMiniChefPairAddreses(chainId)
   )
@@ -180,19 +180,19 @@ export function useMiniChefFarmsWithUser({
   variables: any
   swrConfig?: SWRConfiguration | undefined
 }) {
-  const shouldFetch =
-    chainId &&
-    [
-      ChainId.MATIC,
-      ChainId.XDAI,
-      ChainId.HARMONY,
-      ChainId.ARBITRUM,
-      ChainId.CELO,
-      ChainId.MOONRIVER,
-      ChainId.FUSE,
-      ChainId.FANTOM,
-      ChainId.MOONBEAM,
-    ].includes(chainId)
+  const shouldFetch = chainId
+  // chainId &&
+  // [
+  //   ChainId.MATIC,
+  //   ChainId.XDAI,
+  //   ChainId.HARMONY,
+  //   ChainId.ARBITRUM,
+  //   ChainId.CELO,
+  //   ChainId.MOONRIVER,
+  //   ChainId.FUSE,
+  //   ChainId.FANTOM,
+  //   ChainId.MOONBEAM,
+  // ].includes(chainId)
   const { data } = useSWR(
     shouldFetch ? ['miniChefFarmsWithUser', chainId, variables] : null,
     (_, chainId) => getMiniChefFarmsWithUser(chainId),

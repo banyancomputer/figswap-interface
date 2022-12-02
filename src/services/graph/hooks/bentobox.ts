@@ -33,7 +33,7 @@ export function useBentoBox({ chainId = ChainId.ETHEREUM, variables, shouldFetch
 export function useBentoStrategies({
   chainId = ChainId.ETHEREUM,
   variables,
-  shouldFetch = featureEnabled(Feature.BENTOBOX, chainId),
+  shouldFetch = false, // featureEnabled(Feature.BENTOBOX, chainId),
   swrConfig = undefined,
 }: GraphProps) {
   const { data } = useSWR<Awaited<ReturnType<typeof getBentoStrategies>>>(

@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@figswap/core-sdk'
+import { Token } from '@figswap/core-sdk'
 import { uriToHttp } from 'app/functions/convert'
 import Vibrant from 'node-vibrant'
 import { shade } from 'polished'
@@ -7,10 +7,6 @@ import { useLayoutEffect, useState } from 'react'
 import { hex } from 'wcag-contrast'
 
 async function getColorFromToken(token: Token): Promise<string | null> {
-  if (token.chainId === ChainId.RINKEBY && token.address === '0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735') {
-    return Promise.resolve('#FAAB14')
-  }
-
   const path = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${token.address}/logo.png`
 
   return Vibrant.from(path)

@@ -12,6 +12,7 @@ const NEW_POOL_MIN_LP_RECIEVED = '1'
 // Because twap setting is a boolean, a few more checks are necessary
 export const getTwapSelection = (migration: v2Migration): boolean | undefined => {
   const matchingPoolTwap = migration.matchingTridentPool?.twapEnabled
+  // @ts-ignore poolToCreate is not defined on the migration object!
   const newPoolTwap = migration.poolToCreate?.twap
 
   if (matchingPoolTwap !== undefined) {
@@ -22,6 +23,7 @@ export const getTwapSelection = (migration: v2Migration): boolean | undefined =>
 }
 
 export const getSwapFee = (migration: v2Migration): Fee | undefined =>
+  // @ts-ignore poolToCreate is not defined on the migration object!
   migration.matchingTridentPool?.swapFee || migration.poolToCreate?.fee
 
 type pairAddress = string

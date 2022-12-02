@@ -118,6 +118,7 @@ const Add = ({ placeholderSlippage, trident = false, className }: Props) => {
   const addTransaction = useTransactionAdder()
 
   async function onAdd() {
+    console.debug('add liquidity')
     if (!chainId || !library || !account || !routerContract) return
 
     const { [Field.CURRENCY_A]: parsedAmountA, [Field.CURRENCY_B]: parsedAmountB } = parsedAmounts
@@ -193,6 +194,7 @@ const Add = ({ placeholderSlippage, trident = false, className }: Props) => {
       )
       .catch((error) => {
         setAttemptingTxn(false)
+        // TODO: This should display a nicely formatted error message to the user :)
         // we only care if the error is something _other_ than the user rejected the tx
         if (error?.code !== USER_REJECTED_TX) {
           console.error(error)
@@ -270,7 +272,7 @@ const Add = ({ placeholderSlippage, trident = false, className }: Props) => {
           router.push(`/add/${newCurrencyIdB}`)
         }
       } else {
-        router.push(`/add/${currencyIdA ? currencyIdA : 'ETH'}/${newCurrencyIdB}`)
+        router.push(`/add/${currencyIdA ? currencyIdA : 'tFIL'}/${newCurrencyIdB}`)
       }
     },
     [currencyIdA, router, currencyIdB]
@@ -400,22 +402,10 @@ const Add = ({ placeholderSlippage, trident = false, className }: Props) => {
                 <NavLink
                   activeClassName="text-high-emphesis text-lg"
                   href={{
-                    pathname: '/add',
+                    pathname: '/pool',
                   }}
                 >
-                  <Typography weight={700} className="text-secondary cursor-pointer hover:text-white">
-                    {i18n._(t`Add`)}
-                  </Typography>
-                </NavLink>
-                <NavLink
-                  activeClassName="text-high-emphesis text-lg"
-                  href={{
-                    pathname: '/remove',
-                  }}
-                >
-                  <Typography weight={700} className="text-secondary cursor-pointer hover:text-white">
-                    {i18n._(t`Remove`)}
-                  </Typography>
+                  <ArrowLeft className="text-secondary cursor-pointer hover:text-white" />
                 </NavLink>
               </div>
               <CogIcon width={25} onClick={() => setShowSettings(true)} color={'#746AFB'} className="cursor-pointer" />
@@ -426,10 +416,10 @@ const Add = ({ placeholderSlippage, trident = false, className }: Props) => {
             <SwapAssetPanel
               header={SwapAssetPanel.Header}
               spendFromWallet={true}
-              value={formattedAmounts[Field.CURRENCY_B]}
-              onChange={onFieldBInput}
-              onSelect={handleCurrencyBSelect}
-              currency={currencies[Field.CURRENCY_B]}
+              value={formattedAmounts[Field.CURRENCY_A]}
+              onChange={onFieldAInput}
+              onSelect={handleCurrencyASelect}
+              currency={currencies[Field.CURRENCY_A]}
             />
 
             <div className="z-0 flex justify-center -mt-6 -mb-6">

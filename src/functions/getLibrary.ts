@@ -1,13 +1,6 @@
 import { Web3Provider } from '@ethersproject/providers'
-import { ChainId } from '@figswap/core-sdk'
-import ms from 'ms.macro'
 
-const NETWORK_POLLING_INTERVALS: { [chainId: number]: number } = {
-  [ChainId.ARBITRUM]: ms`1s`,
-  [ChainId.ARBITRUM_TESTNET]: ms`1s`,
-  // [ChainId.HARMONY]: ms`1s`,
-  [ChainId.MATIC]: ms`1s`,
-}
+const NETWORK_POLLING_INTERVALS: { [chainId: number]: number } = {}
 
 export default function getLibrary(provider: any): Web3Provider {
   const library = new Web3Provider(

@@ -47,7 +47,9 @@ const ToggleButtonGroup: ToggleButtonGroup<Props> = ({
     >
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
+          //Note (amiller68) - #ReactIssue
           return cloneElement(child, {
+            // @ts-ignore
             variant,
             size,
             style: { width: `calc(100% / ${Children.toArray(children).length})` },

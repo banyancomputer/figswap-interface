@@ -1,8 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Typography from 'app/components/Typography'
-import getAnalyticsBentobox from 'app/features/analytics/bentobox/getAnalyticsBentobox'
-import TokenTable from 'app/features/analytics/bentobox/TokenTable'
+// import getAnalyticsBentobox from 'app/features/analytics/bentobox/getAnalyticsBentobox'
+// import TokenTable from 'app/features/analytics/bentobox/TokenTable'
 import ChartCard from 'app/features/analytics/ChartCard'
 import getAnalyticsDashboard, { AnalyticsDashboard } from 'app/features/analytics/dashboard/getAnalyticsDashboard'
 import getAnalyticsPairs from 'app/features/analytics/pools/getAnalyticsPairs'
@@ -93,7 +93,7 @@ function _Analytics(): JSX.Element {
           </div>
           <div className="pt-4">
             <PoolTable chainId={chainId} />
-            <TokenTable chainId={chainId} />
+            {/* <TokenTable chainId={chainId} /> */}
           </div>
         </div>
       </TridentBody>
@@ -112,9 +112,9 @@ export const getServerSideProps: GetServerSideProps<any> = async ({ query, res }
         [`/api/analytics/dashboard/${query.chainId}`]: await getAnalyticsDashboard({
           chainId: Number(query.chainId),
         }),
-        [`/api/analytics/bentobox/${query.chainId}`]: await getAnalyticsBentobox({
-          chainId: Number(query.chainId),
-        }),
+        // [`/api/analytics/bentobox/${query.chainId}`]: await getAnalyticsBentobox({
+        //   chainId: Number(query.chainId),
+        // }),
         [`/api/analytics/pairs/${query.chainId}`]: await getAnalyticsPairs({
           chainId: Number(query.chainId),
           first: 10,

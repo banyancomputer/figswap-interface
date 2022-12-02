@@ -4,12 +4,12 @@ import { AddressZero } from '@ethersproject/constants'
 import { keccak256 } from '@ethersproject/solidity'
 // TODO / Note (amiller68) - #SdkChange / #SdkPublish
 import {
-  BENTOBOX_ADDRESS,
+  // BENTOBOX_ADDRESS,
   CHAINLINK_ORACLE_ADDRESS,
   computePairAddress,
   Currency,
   FACTORY_ADDRESS,
-  KASHI_ADDRESS,
+  // KASHI_ADDRESS,
   Pair,
   Token,
 } from '@figswap/core-sdk'
@@ -252,7 +252,7 @@ export const computeKashiPairAddress = ({
   oracleData: string
 }): string => {
   return getCreate2Address(
-    BENTOBOX_ADDRESS[collateral.chainId],
+    '0x0', // BENTOBOX_ADDRESS[collateral.chainId],
     keccak256(
       ['bytes'],
       [
@@ -266,7 +266,7 @@ export const computeKashiPairAddress = ({
       ['bytes'],
       [
         '0x3d602d80600a3d3981f3363d3d373d3d3d363d73' +
-          KASHI_ADDRESS[collateral.chainId].substring(2) +
+          undefined + //KASHI_ADDRESS[collateral.chainId].substring(2) +
           '5af43d82803e903d91602b57fd5bf3',
       ]
     )
@@ -281,8 +281,9 @@ export const computeKashiPairAddress = ({
 export function toKashiLiquidityToken([collateral, asset]: [Token, Token]): Token {
   if (collateral.chainId !== asset.chainId) throw new Error('Not matching chain IDs')
   if (collateral.equals(asset)) throw new Error('Tokens cannot be equal')
-  if (!BENTOBOX_ADDRESS[collateral.chainId]) throw new Error('No BentoBox factory address on this chain')
-  if (!KASHI_ADDRESS[collateral.chainId]) throw new Error('No Kashi address on this chain')
+  throw new Error('Not implemented')
+  // if (!BENTOBOX_ADDRESS[collateral.chainId]) throw new Error('No BentoBox factory address on this chain')
+  // if (!KASHI_ADDRESS[collateral.chainId]) throw new Error('No Kashi address on this chain')
   // console.log({
   //   collateral,
   //   asset,

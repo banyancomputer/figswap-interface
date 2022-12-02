@@ -1,5 +1,4 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { BENTOBOX_ADDRESS, ChainId } from '@figswap/core-sdk'
 import { Contract, Signer, utils, Wallet } from 'ethers'
 
 import { ADDRESSES } from '../constants/Index'
@@ -17,7 +16,8 @@ export class BentoHelper {
     this.Signer = signer
 
     const balanceOfFunction = ['function balanceOf(address, address) public view returns (uint256)']
-    this.BentoContract = new Contract(BENTOBOX_ADDRESS[ChainId.KOVAN], balanceOfFunction, this.Signer)
+    // this.BentoContract = new Contract(BENTOBOX_ADDRESS[ChainId.KOVAN], balanceOfFunction, this.Signer)
+    this.BentoContract = new Contract('0x0', balanceOfFunction, this.Signer)
   }
 
   public async getBentoBalance(tokenSymbol: string): Promise<number> {

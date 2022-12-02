@@ -1,3 +1,4 @@
+// @ts-ignore
 import localForage from 'localforage'
 
 // Defaults to IndexDB, can change strategy.

@@ -18,7 +18,6 @@ export function useNativeCurrencyBalances(uncheckedAddresses?: (string | undefin
 } {
   const { chainId } = useActiveWeb3React()
   const multicallContract = useInterfaceMulticall()
-  console.log('multicallContract', multicallContract)
 
   // Validate addresses, returns filtered list of addresses
   const validAddressInputs: [string][] = useMemo(

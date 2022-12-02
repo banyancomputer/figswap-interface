@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
 import { TransactionResponse } from '@ethersproject/providers'
-import { ChainId, NATIVE, Percent, WNATIVE, WNATIVE_ADDRESS } from '@figswap/core-sdk'
+import { NATIVE, Percent, WNATIVE, WNATIVE_ADDRESS } from '@figswap/core-sdk'
 import { CogIcon } from '@heroicons/react/outline'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
@@ -35,6 +35,7 @@ import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 import React, { useCallback, useMemo, useState } from 'react'
 import { Plus } from 'react-feather'
+import { ArrowLeft } from 'react-feather'
 const DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE = new Percent(5, 100)
 
 export default function Remove() {
@@ -82,7 +83,9 @@ export default function Remove() {
     const liquidityAmount = parsedAmounts[Field.LIQUIDITY]
     if (!liquidityAmount) throw new Error('missing liquidity amount')
 
-    if (chainId !== ChainId.HARMONY && gatherPermitSignature) {
+    // Note (amiller68) - #WallabyOnly
+    // if (chainId !== ChainId.HARMONY && gatherPermitSignature) {
+    if (gatherPermitSignature) {
       try {
         await gatherPermitSignature()
       } catch (error) {
@@ -389,22 +392,10 @@ export default function Remove() {
               <NavLink
                 activeClassName="text-high-emphesis text-lg"
                 href={{
-                  pathname: '/add',
+                  pathname: '/pool',
                 }}
               >
-                <Typography weight={700} className="text-secondary cursor-pointer	hover:text-white">
-                  {i18n._(t`Add`)}
-                </Typography>
-              </NavLink>
-              <NavLink
-                activeClassName="text-high-emphesis text-lg"
-                href={{
-                  pathname: '/remove',
-                }}
-              >
-                <Typography weight={700} className="text-secondary cursor-pointer	hover:text-white">
-                  {i18n._(t`Remove`)}
-                </Typography>
+                <ArrowLeft className="text-secondary cursor-pointer hover:text-white" />
               </NavLink>
             </div>
             <CogIcon width={25} onClick={() => setShowSettings(true)} color={'#746AFB'} className="cursor-pointer" />

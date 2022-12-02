@@ -70,6 +70,7 @@ export const AutoRow: FC<React.HTMLAttributes<HTMLDivElement> & AutoRowProps> = 
     }}
     {...rest}
   >
+    {/* @ts-ignore Note (amiller68) - #ReactIssue */}
     {Children.map(children, (child) => cloneElement(child as ReactElement, { style: { margin: gap } }))}
   </Row>
 )

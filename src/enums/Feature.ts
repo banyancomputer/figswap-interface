@@ -3,11 +3,11 @@ export enum Feature {
   AMM = 'AMM',
 
   // TODO (amiller68): More Features we want to implement :) !
-  LIQUIDITY_MINING = 'Liquidity Mining',
+  // LIQUIDITY_MINING = 'Liquidity Mining',
   ANALYTICS = 'Analytics',
-  STAKING = 'Staking',
+  // STAKING = 'Staking',
   LIMIT_ORDERS = 'LimitOrders',
-  VESTING = 'Vesting',
+  // VESTING = 'Vesting',
   SUBGRAPH = 'Subgraph',
   SUSHIGUARD = 'SushiGuard',
 }

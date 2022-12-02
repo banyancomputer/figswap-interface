@@ -76,7 +76,7 @@ export function useEthPrice(variables = undefined, swrConfig: SWRConfiguration =
 // @ts-ignore TYPE NEEDS FIXING
 export function useGnoPrice(swrConfig: SWRConfiguration = undefined) {
   const { chainId } = useActiveWeb3React()
-  const shouldFetch = chainId && chainId === ChainId.XDAI
+  const shouldFetch = false // chainId && chainId === ChainId.XDAI
   return useSWR(shouldFetch ? 'gnoPrice' : null, () => getGnoPrice(), swrConfig)
 }
 
@@ -103,21 +103,21 @@ export function useOnePrice(swrConfig: SWRConfiguration = undefined) {
 // @ts-ignore TYPE NEEDS FIXING
 export function useCeloPrice(swrConfig: SWRConfiguration = undefined) {
   const { chainId } = useActiveWeb3React()
-  const shouldFetch = chainId && chainId === ChainId.CELO
+  const shouldFetch = false // chainId && chainId === ChainId.CELO
   return useSWR(shouldFetch ? 'celoPrice' : null, () => getCeloPrice(), swrConfig)
 }
 
 // @ts-ignore TYPE NEEDS FIXING
 export function useFantomPrice(swrConfig: SWRConfiguration = undefined) {
   const { chainId } = useActiveWeb3React()
-  const shouldFetch = chainId && chainId === ChainId.FANTOM
+  const shouldFetch = false // chainId && chainId === ChainId.FANTOM
   return useSWR(shouldFetch ? 'fantomPrice' : null, () => getFantomPrice(), swrConfig)
 }
 
 // @ts-ignore TYPE NEEDS FIXING
 export function useMovrPrice(swrConfig: SWRConfiguration = undefined) {
   const { chainId } = useActiveWeb3React()
-  const shouldFetch = chainId && chainId === ChainId.MOONRIVER
+  const shouldFetch = false // chainId && chainId === ChainId.MOONRIVER
   return useSWR(shouldFetch ? 'movrPrice' : null, () => getMovrPrice(), swrConfig)
 }
 
@@ -193,14 +193,14 @@ export function useOhmPrice(swrConfig: SWRConfiguration = undefined) {
 // @ts-ignore TYPE NEEDS FIXING
 export function useFusePrice(swrConfig: SWRConfiguration = undefined) {
   const { chainId } = useActiveWeb3React()
-  const shouldFetch = chainId && chainId === ChainId.FUSE
+  const shouldFetch = false // chainId && chainId === ChainId.FUSE
   return useSWR(shouldFetch ? 'fusePrice' : null, () => getFusePrice(), swrConfig)
 }
 
 // @ts-ignore TYPE NEEDS FIXING
 export function useMagicPrice(swrConfig: SWRConfiguration = undefined) {
   const { chainId } = useActiveWeb3React()
-  const shouldFetch = chainId && chainId === ChainId.ARBITRUM
+  const shouldFetch = false // chainId && chainId === ChainId.ARBITRUM
   return useSWR(shouldFetch ? 'magicPrice' : null, () => getMagicPrice(), swrConfig)
 }
 

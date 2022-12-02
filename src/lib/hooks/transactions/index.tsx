@@ -15,7 +15,7 @@ function isTransactionRecent(transaction: Transaction) {
 
 export function usePendingTransactions() {
   const { chainId } = useActiveWeb3React()
-  const txs = useAtomValue(transactionsAtom)
+  const txs: any = useAtomValue(transactionsAtom)
   return (chainId ? txs[chainId] : null) ?? {}
 }
 
@@ -30,7 +30,7 @@ export function useAddTransaction() {
       const txChainId = chainId
       const { hash } = info.response
 
-      updateTxs((chainTxs) => {
+      updateTxs((chainTxs: any) => {
         const txs = chainTxs[txChainId] || {}
         txs[hash] = { addedTime: new Date().getTime(), lastCheckedBlockNumber: blockNumber, info }
         chainTxs[chainId] = txs
@@ -43,20 +43,21 @@ export function useAddTransaction() {
 /** Returns the hash of a pending approval transaction, if it exists. */
 export function usePendingApproval(token?: Token, spender?: string): string | undefined {
   const { chainId } = useActiveWeb3React()
-  const txs = useAtomValue(transactionsAtom)
+  const txs: any = useAtomValue(transactionsAtom)
   if (!chainId || !token || !spender) return undefined
 
   const chainTxs = txs[chainId]
   if (!chainTxs) return undefined
 
   return Object.values(chainTxs).find(
-    (tx) =>
+    (tx: any) =>
       tx &&
       tx.receipt === undefined &&
       tx.info.type === TransactionType.APPROVAL &&
       tx.info.tokenAddress === token.address &&
       tx.info.spenderAddress === spender &&
       isTransactionRecent(tx)
+    // @ts-ignore
   )?.info.response.hash
 }
 
@@ -66,7 +67,7 @@ export function TransactionsUpdater() {
   const updateTxs = useUpdateAtom(transactionsAtom)
   const onCheck = useCallback(
     ({ chainId, hash, blockNumber }) => {
-      updateTxs((txs) => {
+      updateTxs((txs: any) => {
         const tx = txs[chainId]?.[hash]
         if (tx) {
           tx.lastCheckedBlockNumber = tx.lastCheckedBlockNumber
@@ -79,7 +80,7 @@ export function TransactionsUpdater() {
   )
   const onPrivateTxStatusCheck = useCallback(
     ({ chainId, hash, blockNumber, status }) => {
-      updateTxs((txs) => {
+      updateTxs((txs: any) => {
         const tx = txs[chainId]?.[hash]
         if (tx) {
           tx.lastCheckedBlockNumber = tx.lastCheckedBlockNumber
@@ -93,7 +94,7 @@ export function TransactionsUpdater() {
   )
   const onReceipt = useCallback(
     ({ chainId, hash, receipt }) => {
-      updateTxs((txs) => {
+      updateTxs((txs: any) => {
         const tx = txs[chainId]?.[hash]
         if (tx) {
           tx.receipt = receipt

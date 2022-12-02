@@ -4,12 +4,9 @@ import EXPORTS from '@sushiswap/trident/exports/all.json'
 import Button from 'app/components/Button'
 import Dots from 'app/components/Dots'
 import { LoadingSpinner } from 'app/components/LoadingSpinner'
-import { SelectTridentPoolPanel } from 'app/components/Migrate/SelectTridentPoolPanel'
 import { migrateGridLayoutCss } from 'app/features/trident/migrate/AvailableToMigrate'
 import {
   addSLPPermit,
-  editMigration,
-  MigrationSource,
   selectLeftToChoose,
   selectTridentMigrations,
 } from 'app/features/trident/migrate/context/migrateSlice'
@@ -65,13 +62,14 @@ export const SelectPoolsAndConfirm: FC = () => {
         <div className="flex flex-col">
           <div className={migrateGridLayoutCss}>
             {selectedMigrations.map((migration, i) => (
-              <SelectTridentPoolPanel
-                key={i}
-                migration={migration}
-                tridentPools={data ?? []}
-                source={MigrationSource.SUSHI_V2}
-                setFunc={(migration) => dispatch(editMigration({ indexToReplace: i, migration }))}
-              />
+              <> </>
+              // <SelectTridentPoolPanel
+              //   key={i}
+              //   migration={migration}
+              //   tridentPools={data ?? []}
+              //   source={MigrationSource.SUSHI_V2}
+              //   setFunc={(migration) => dispatch(editMigration({ indexToReplace: i, migration }))}
+              // />
             ))}
           </div>
         </div>

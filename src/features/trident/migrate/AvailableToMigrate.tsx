@@ -2,15 +2,10 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button from 'app/components/Button'
 import { LoadingSpinner } from 'app/components/LoadingSpinner'
-import { SelectPairMigratePanel } from 'app/components/Migrate/SelectPairMigratePanel'
-import {
-  addOrRemoveMigration,
-  MigrationSource,
-  selectTridentMigrations,
-} from 'app/features/trident/migrate/context/migrateSlice'
+import { selectTridentMigrations } from 'app/features/trident/migrate/context/migrateSlice'
 import { useV2PairsWithLiquidity } from 'app/features/trident/migrate/context/useV2PairsWithLiquidity'
 import { useActiveWeb3React } from 'app/services/web3'
-import { useAppDispatch, useAppSelector } from 'app/state/hooks'
+import { useAppSelector } from 'app/state/hooks'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
@@ -24,7 +19,7 @@ export const AvailableToMigrate: FC = () => {
   const { account } = useActiveWeb3React()
   const { pairs, loading } = useV2PairsWithLiquidity()
 
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
   const selectedMigrations = useAppSelector(selectTridentMigrations)
 
   return (
@@ -51,15 +46,16 @@ export const AvailableToMigrate: FC = () => {
           <div className={migrateGridLayoutCss}>
             {pairs.map((pair, i) => {
               return (
-                <SelectPairMigratePanel
-                  key={i}
-                  pair={pair}
-                  source={MigrationSource.SUSHI_V2} // TODO: Needs support for Uniswap, Quickswap, etc
-                  setFunc={(add, migration) => dispatch(addOrRemoveMigration({ add, migration }))}
-                  checkedState={selectedMigrations.some(
-                    (m) => m.v2Pair.liquidityToken.address === pair.liquidityToken.address
-                  )}
-                />
+                <></>
+                // <SelectPairMigratePanel
+                //   key={i}
+                //   pair={pair}
+                //   source={MigrationSource.SUSHI_V2} // TODO: Needs support for Uniswap, Quickswap, etc
+                //   setFunc={(add, migration) => dispatch(addOrRemoveMigration({ add, migration }))}
+                //   checkedState={selectedMigrations.some(
+                //     (m) => m.v2Pair.liquidityToken.address === pair.liquidityToken.address
+                //   )}
+                // />
               )
             })}
           </div>

@@ -5,7 +5,6 @@ import { Contract } from '@ethersproject/contracts'
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { ChainId, ROUTER_ADDRESS } from '@figswap/core-sdk'
 import IUniswapV2Router02ABI from 'app/constants/abis/uniswap-v2-router-02.json'
-import IUniswapV2Router02NoETHABI from 'app/constants/abis/uniswap-v2-router-02-no-eth.json'
 import { isAddress } from 'app/functions/validate'
 
 // account is not optional
@@ -35,10 +34,5 @@ export function getRouterAddress(chainId?: ChainId) {
 
 // account is optional
 export function getRouterContract(chainId: number, library: Web3Provider, account?: string): Contract {
-  return getContract(
-    getRouterAddress(chainId),
-    chainId !== ChainId.CELO ? IUniswapV2Router02ABI : IUniswapV2Router02NoETHABI,
-    library,
-    account
-  )
+  return getContract(getRouterAddress(chainId), IUniswapV2Router02ABI, library, account)
 }

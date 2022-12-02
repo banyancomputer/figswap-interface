@@ -7,7 +7,6 @@ import {
   SUSHI_ADDRESS,
   Trade,
   TradeType,
-  WNATIVE_ADDRESS,
   ZERO,
 } from '@figswap/core-sdk'
 import { i18n } from '@lingui/core'
@@ -124,7 +123,8 @@ function validatedRecipient(recipient: any): string | undefined {
 export function queryParametersToSwapState(chainId: ChainId, parsedQs: ParsedQs) {
   let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency)
   let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
-  const eth = chainId === ChainId.CELO ? WNATIVE_ADDRESS[chainId] : 'ETH'
+  // const eth = chainId === ChainId.CELO ? WNATIVE_ADDRESS[chainId] : 'ETH'
+  const eth = 'ETH'
   const sushi = SUSHI_ADDRESS[chainId]
   if (inputCurrency === '' && outputCurrency === '') {
     inputCurrency = eth
