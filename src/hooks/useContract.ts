@@ -17,6 +17,7 @@ import {
   ROUTER_ADDRESS,
   SUSHI_ADDRESS,
   TIMELOCK_ADDRESS,
+  UNI_FACTORY_ADDRESS,
   WNATIVE_ADDRESS,
 } from '@figswap/core-sdk'
 import { LIMIT_ORDER_HELPER_ADDRESS, STOP_LIMIT_ORDER_ADDRESS } from '@sushiswap/limit-order-sdk'
@@ -56,19 +57,15 @@ import MINICHEF_ABI from 'app/constants/abis/minichef-v2.json'
 import MISO_HELPER_ABI from 'app/constants/abis/miso-helper.json'
 import ROUTER_ABI from 'app/constants/abis/router.json'
 import SUSHI_ABI from 'app/constants/abis/sushi.json'
-import SUSHIROLL_ABI from 'app/constants/abis/sushi-roll.json'
 import TIMELOCK_ABI from 'app/constants/abis/timelock.json'
 import UNI_FACTORY_ABI from 'app/constants/abis/uniswap-v2-factory.json'
 import IUniswapV2PairABI from 'app/constants/abis/uniswap-v2-pair.json'
 import WETH9_ABI from 'app/constants/abis/weth.json'
 import ZENKO_ABI from 'app/constants/abis/zenko.json'
-import LPToken from 'app/features/migration/LPToken'
 import { poolEntityMapper } from 'app/features/trident/poolEntityMapper'
 import { getContract } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useMemo } from 'react'
-
-const UNI_FACTORY_ADDRESS = '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
 
 export function useEIP2612Contract(tokenAddress?: string): Contract | null {
   return useContract(tokenAddress, EIP_2612_ABI, false)
@@ -327,59 +324,59 @@ export function useMisoHelperContract(withSignerIfPossible = true): Contract | n
   return useContract(factory?.address, MISO_HELPER_ABI, withSignerIfPossible)
 }
 
-export function useSushiRollContract(dex: LPToken['dex']): Contract | null {
-  const { chainId } = useActiveWeb3React()
-  let address: string | undefined
-  if (chainId) {
-    switch (
-      chainId
-      // Note (amiller68): #WallabyOnly
-      // case ChainId.ETHEREUM:
-      //   if (dex === 'uniswap_v2') {
-      //     address = '0x16E58463eb9792Bc236d8860F5BC69A81E26E32B'
-      //   }
-      //
-      //   break
-      // case ChainId.ROPSTEN:
-      //   address = '0xCaAbdD9Cf4b61813D4a52f980d6BC1B713FE66F5'
-      //   break
-      // case ChainId.BSC:
-      //   if (dex === 'pancakeswap_v2') {
-      //     address = '0x2DD1aB1956BeD7C2d938d0d7378C22Fd01135a5e'
-      //   }
-      //   break
-      // case ChainId.MATIC:
-      //   if (dex === 'quickswap') {
-      //     address = '0x0053957E18A0994D3526Cf879A4cA7Be88e8936A'
-      //   }
-      //   break
-      // case ChainId.FANTOM:
-      //   if (dex === 'spiritswap') {
-      //     address = '0x2D2ed6871f473Fb9f8958F67C2302360A79fd071'
-      //   } else if (dex === 'spookyswap') {
-      //     address = '0xFB232C6D1E3ad48fEdF8A29c7dEf7A33ce43E56a'
-      //   }
-      //   break
-      // case ChainId.AVALANCHE:
-      //   if (dex === 'traderjoe') {
-      //     address = '0x22a2fBd8bd1123bC3307554AD00bBFF4EDAbB1d5'
-      //   } else if (dex === 'pangolin') {
-      //     address = '0x34F1cC395BeE698d070f33C1c0f8EC4C1022bcFc'
-      //   }
-      //
-      // case ChainId.MOONBEAM:
-      //   if (dex === 'stellaswap') {
-      //     address = '0xdDCbf776dF3dE60163066A5ddDF2277cB445E0F3'
-      //   } else if (dex === 'beamswap') {
-      //     address = '0x67dA5f2FfaDDfF067AB9d5F025F8810634d84287'
-      //   }
-      // // Spookyswap
-      // // 0xFB232C6D1E3ad48fEdF8A29c7dEf7A33ce43E56a
-    ) {
-    }
-  }
-  return useContract(address, SUSHIROLL_ABI, true)
-}
+// export function useSushiRollContract(dex: LPToken['dex']): Contract | null {
+//   const { chainId } = useActiveWeb3React()
+//   let address: string | undefined
+//   if (chainId) {
+//     switch (
+//       chainId
+//       // Note (amiller68): #WallabyOnly
+//       // case ChainId.ETHEREUM:
+//       //   if (dex === 'uniswap_v2') {
+//       //     address = '0x16E58463eb9792Bc236d8860F5BC69A81E26E32B'
+//       //   }
+//       //
+//       //   break
+//       // case ChainId.ROPSTEN:
+//       //   address = '0xCaAbdD9Cf4b61813D4a52f980d6BC1B713FE66F5'
+//       //   break
+//       // case ChainId.BSC:
+//       //   if (dex === 'pancakeswap_v2') {
+//       //     address = '0x2DD1aB1956BeD7C2d938d0d7378C22Fd01135a5e'
+//       //   }
+//       //   break
+//       // case ChainId.MATIC:
+//       //   if (dex === 'quickswap') {
+//       //     address = '0x0053957E18A0994D3526Cf879A4cA7Be88e8936A'
+//       //   }
+//       //   break
+//       // case ChainId.FANTOM:
+//       //   if (dex === 'spiritswap') {
+//       //     address = '0x2D2ed6871f473Fb9f8958F67C2302360A79fd071'
+//       //   } else if (dex === 'spookyswap') {
+//       //     address = '0xFB232C6D1E3ad48fEdF8A29c7dEf7A33ce43E56a'
+//       //   }
+//       //   break
+//       // case ChainId.AVALANCHE:
+//       //   if (dex === 'traderjoe') {
+//       //     address = '0x22a2fBd8bd1123bC3307554AD00bBFF4EDAbB1d5'
+//       //   } else if (dex === 'pangolin') {
+//       //     address = '0x34F1cC395BeE698d070f33C1c0f8EC4C1022bcFc'
+//       //   }
+//       //
+//       // case ChainId.MOONBEAM:
+//       //   if (dex === 'stellaswap') {
+//       //     address = '0xdDCbf776dF3dE60163066A5ddDF2277cB445E0F3'
+//       //   } else if (dex === 'beamswap') {
+//       //     address = '0x67dA5f2FfaDDfF067AB9d5F025F8810634d84287'
+//       //   }
+//       // // Spookyswap
+//       // // 0xFB232C6D1E3ad48fEdF8A29c7dEf7A33ce43E56a
+//     ) {
+//     }
+//   }
+//   return useContract(address, SUSHIROLL_ABI, true)
+// }
 
 export function useDashboardContract(): Contract | null {
   const { chainId } = useActiveWeb3React()

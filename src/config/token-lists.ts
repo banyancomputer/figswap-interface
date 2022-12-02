@@ -1,6 +1,5 @@
 // TODO (amiller68): Add tokens and change to Filecoin mainenet
-const FIGSWAP_LIST =
-  'https://raw.githubusercontent.com/banyancomputer/interface/featuer-cleanup/.github/figswap-token-list.json'
+const FIGSWAP_LIST = 'https://raw.githubusercontent.com/banyancomputer/interface/master/.github/figswap-token-list.json'
 
 export const UNSUPPORTED_LIST_URLS: string[] = []
 
