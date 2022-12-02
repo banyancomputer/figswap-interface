@@ -5,7 +5,6 @@
   "scripts": {
     "analyze": "ANALYZE=true yarn build && serve .next -n",
     "build": "yarn lingui && next build",
-    "bild": "next build",
     "circular": "madge --circular src --extensions ts,tsx,js,jsx",
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "e2e": "concurrently -k -s first -n \"app,e2e\" \"yarn dev\" \"yarn e2e:safe\"",
