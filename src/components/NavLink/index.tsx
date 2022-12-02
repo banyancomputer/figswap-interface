@@ -22,6 +22,7 @@ const NavLink = ({ children, exact = false, activeClassName = 'text-high-emphesi
 
   return (
     <Link href={props.href} {...props}>
+      {/* @ts-ingore Note (amiller68) - #ReactIssue */}
       {React.cloneElement(child, {
         className: className || null,
       })}

@@ -1,5 +1,3 @@
-import { Feature } from 'app/enums'
-import { featureEnabled } from 'app/functions'
 import { useRouter } from 'next/router'
 
 import Tabs from '../Tabs'
@@ -20,13 +18,6 @@ export default function DashboardTabs({ currentType, setType }): JSX.Element {
       type: 'tokens',
     },
   ]
-
-  if (featureEnabled(Feature.LIQUIDITY_MINING, chainId)) {
-    tabs.unshift({
-      name: 'Top Farms',
-      type: 'pools',
-    })
-  }
 
   return (
     <>

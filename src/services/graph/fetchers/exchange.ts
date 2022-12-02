@@ -20,19 +20,19 @@ import { pager } from './pager'
 
 export const EXCHANGE = {
   [ChainId.ETHEREUM]: 'sushiswap/exchange',
-  [ChainId.XDAI]: 'sushiswap/xdai-exchange',
-  [ChainId.MATIC]: 'sushiswap/exchange-polygon',
-  [ChainId.FANTOM]: 'sushiswap/exchange-fantom',
-  [ChainId.BSC]: 'sushiswap/bsc-exchange',
-  [ChainId.HARMONY]: 'sushiswap/harmony-exchange',
-  [ChainId.AVALANCHE]: 'sushiswap/exchange-avalanche',
-  [ChainId.CELO]: 'sushiswap/exchange-celo',
-  [ChainId.ARBITRUM]: 'sushiswap/exchange-arbitrum-backup',
-  [ChainId.MOONRIVER]: 'sushiswap/exchange-moonriver',
-  [ChainId.OKEX]: 'okex-exchange/oec',
-  [ChainId.HECO]: 'heco-exchange/heco',
-  [ChainId.FUSE]: 'sushiswap/exchange-fuse',
-  [ChainId.MOONBEAM]: 'sushiswap/exchange-moonbeam',
+  // [ChainId.XDAI]: 'sushiswap/xdai-exchange',
+  // [ChainId.MATIC]: 'sushiswap/exchange-polygon',
+  // [ChainId.FANTOM]: 'sushiswap/exchange-fantom',
+  // [ChainId.BSC]: 'sushiswap/bsc-exchange',
+  // [ChainId.HARMONY]: 'sushiswap/harmony-exchange',
+  // [ChainId.AVALANCHE]: 'sushiswap/exchange-avalanche',
+  // [ChainId.CELO]: 'sushiswap/exchange-celo',
+  // [ChainId.ARBITRUM]: 'sushiswap/exchange-arbitrum-backup',
+  // [ChainId.MOONRIVER]: 'sushiswap/exchange-moonriver',
+  // [ChainId.OKEX]: 'okex-exchange/oec',
+  // [ChainId.HECO]: 'heco-exchange/heco',
+  // [ChainId.FUSE]: 'sushiswap/exchange-fuse',
+  // [ChainId.MOONBEAM]: 'sushiswap/exchange-moonbeam',
 }
 
 // @ts-ignore TYPE NEEDS FIXING
@@ -108,10 +108,11 @@ export const getEthPrice = async (variables = undefined) => {
 }
 
 export const getGlimmerPrice = async (variables = {}) => {
-  return getTokenPrice(ChainId.MOONBEAM, tokenPriceQuery, {
-    id: '0xacc15dc74880c9944775448304b263d191c6077f',
-    ...variables,
-  })
+  // return getTokenPrice(ChainId.MOONBEAM, tokenPriceQuery, {
+  //   id: '0xacc15dc74880c9944775448304b263d191c6077f',
+  //   ...variables,
+  // })
+  return 0
 }
 
 export const getMetisPrice = async (variables = {}) => {
@@ -151,10 +152,11 @@ export const getCvxPrice = async (variables = {}) => {
 
 export const getMaticPrice = async (variables = {}) => {
   // console.log('getMaticPrice')
-  return getTokenPrice(ChainId.MATIC, tokenPriceQuery, {
-    id: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
-    ...variables,
-  })
+  // return getTokenPrice(ChainId.MATIC, tokenPriceQuery, {
+  //   id: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+  //   ...variables,
+  // })
+  return 0
 }
 
 export const getAlcxPrice = async (variables = {}) => {
@@ -188,54 +190,61 @@ export const getSushiPrice = async (variables = {}) => {
 }
 
 export const getGnoPrice = async () => {
-  return getTokenPrice(ChainId.XDAI, tokenPriceQuery, {
-    id: '0x9c58bacc331c9aa871afd802db6379a98e80cedb',
-  })
+  // return getTokenPrice(ChainId.XDAI, tokenPriceQuery, {
+  //   id: '0x9c58bacc331c9aa871afd802db6379a98e80cedb',
+  // })
+  return 0
 }
 
 export const getOnePrice = async (variables = undefined) => {
-  return getNativePrice(ChainId.HARMONY, variables)
+  // return getNativePrice(ChainId.HARMONY, variables)
+  return 0
 }
 
 export const getAvaxPrice = async (variables = undefined) => {
-  return getNativePrice(ChainId.AVALANCHE, variables)
+  // return getNativePrice(ChainId.AVALANCHE, variables)
+  return 0
 }
 
 export const getCeloPrice = async () => {
-  return getTokenPrice(ChainId.CELO, tokenPriceQuery, {
-    id: '0x471ece3750da237f93b8e339c536989b8978a438',
-  })
+  // return getTokenPrice(ChainId.CELO, tokenPriceQuery, {
+  //   id: '0x471ece3750da237f93b8e339c536989b8978a438',
+  // })
+  return 0
 }
 
 export const getFantomPrice = async () => {
-  return getTokenPrice(ChainId.FANTOM, tokenPriceQuery, {
-    id: '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83',
-  })
+  // return getTokenPrice(ChainId.FANTOM, tokenPriceQuery, {
+  //   id: '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83',
+  // })
+  return 0
 }
 
 // @ts-ignore TYPE NEEDS FIXING
 export const getOhmPrice = async (chainId) => {
-  if (chainId === ChainId.ARBITRUM) {
-    return getTokenPrice(ChainId.ARBITRUM, tokenPriceQuery, {
-      id: '0x8d9ba570d6cb60c7e3e0f31343efe75ab8e65fb1',
-    })
-  } else {
-    return getTokenPrice(ChainId.MATIC, tokenPriceQuery, {
-      id: '0xd8ca34fd379d9ca3c6ee3b3905678320f5b45195',
-    })
-  }
+  // if (chainId === ChainId.ARBITRUM) {
+  //   return getTokenPrice(ChainId.ARBITRUM, tokenPriceQuery, {
+  //     id: '0x8d9ba570d6cb60c7e3e0f31343efe75ab8e65fb1',
+  //   })
+  // } else {
+  //   return getTokenPrice(ChainId.MATIC, tokenPriceQuery, {
+  //     id: '0xd8ca34fd379d9ca3c6ee3b3905678320f5b45195',
+  //   })
+  // }
+  return 0
 }
 
 export const getMagicPrice = async () => {
-  return getTokenPrice(ChainId.ARBITRUM, tokenPriceQuery, {
-    id: '0x539bde0d7dbd336b79148aa742883198bbf60342',
-  })
+  // return getTokenPrice(ChainId.ARBITRUM, tokenPriceQuery, {
+  //   id: '0x539bde0d7dbd336b79148aa742883198bbf60342',
+  // })
 }
 
 export const getMovrPrice = async () => {
-  return getTokenPrice(ChainId.MOONRIVER, tokenPriceQuery, {
-    id: '0xf50225a84382c74cbdea10b0c176f71fc3de0c4d',
-  })
+  // return getTokenPrice(ChainId.MOONRIVER, tokenPriceQuery, {
+  //   id: '0xf50225a84382c74cbdea10b0c176f71fc3de0c4d',
+  // })
+  return 0
 }
 
 export const getSpellPrice = async () => {
@@ -245,9 +254,10 @@ export const getSpellPrice = async () => {
 }
 
 export const getFusePrice = async () => {
-  return getTokenPrice(ChainId.FUSE, tokenPriceQuery, {
-    id: '0x0be9e53fd7edac9f859882afdda116645287c629',
-  })
+  // return getTokenPrice(ChainId.FUSE, tokenPriceQuery, {
+  //   id: '0x0be9e53fd7edac9f859882afdda116645287c629',
+  // })
+  return 0
 }
 
 export const getBundle = async (

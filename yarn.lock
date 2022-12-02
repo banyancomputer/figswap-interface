@@ -1742,10 +1742,10 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
-"@figswap/core-sdk@0.0.0-canary.2":
-  version "0.0.0-canary.2"
-  resolved "https://registry.yarnpkg.com/@figswap/core-sdk/-/core-sdk-0.0.0-canary.2.tgz#0b57114a9e9f3ba0802faeecbe0a0545f78682e2"
-  integrity sha512-oHVzhDFcSmet/RgkOIWOoh6Aa1JAOToLyHlksnfJWqHyE8ihiWBJK1ugHK+H8J+2BNhyj0/yZ/0vIB2+5yHuIA==
+"@figswap/core-sdk@0.0.0-canary.3":
+  version "0.0.0-canary.3"
+  resolved "https://registry.yarnpkg.com/@figswap/core-sdk/-/core-sdk-0.0.0-canary.3.tgz#d2d327dd1d3ef24204cc52dfae04f70ae4d75478"
+  integrity sha512-fZn7e+kjdom4JalEDb2f6xnkVsMxuqPqKRiZUUhHoNvNBPlDyqeb4a35fgntkdZqcHMhHX68UpvfN4G59K2nUQ==
   dependencies:
     "@ethersproject/address" "^5.4.0"
     "@ethersproject/bignumber" "^5.4.0"

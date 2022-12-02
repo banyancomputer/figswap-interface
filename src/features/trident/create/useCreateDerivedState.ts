@@ -16,7 +16,6 @@ import { useBentoOrWalletBalance } from 'app/hooks/useBentoOrWalletBalance'
 import useBentoRebases from 'app/hooks/useBentoRebases'
 import { useConstantProductPool } from 'app/hooks/useConstantProductPools'
 import { useActiveWeb3React } from 'app/services/web3'
-import { useBentoMasterContractAllowed } from 'app/state/bentobox/hooks'
 import { useAppDispatch, useAppSelector } from 'app/state/hooks'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
@@ -108,7 +107,6 @@ export const useCreatePoolDerivedDependencyError: UseCreatePoolDerivedDependency
   const router = useTridentRouterContract()
   const { selectedAssets: assets, selectedFeeTier: feeTier, bentoPermit } = useAppSelector(selectTridentCreate)
   const parsedAmounts = useCreatePoolDerivedCurrencyAmounts()
-  const bentoApproved = useBentoMasterContractAllowed(router?.address, account ?? undefined)
   const { rebases } = useBentoRebases(assets.map((asset) => asset.currency))
 
   if (!account) {
@@ -132,8 +130,6 @@ export const useCreatePoolDerivedDependencyError: UseCreatePoolDerivedDependency
     !rebases?.[parsedAmounts[1].currency.wrapped.address]
   ) {
     return i18n._(t`Rebases still loading`)
-  } else if (!bentoApproved && !bentoPermit) {
-    return i18n._(t`Missing bento permit`)
   }
 
   return ''

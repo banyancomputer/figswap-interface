@@ -62,6 +62,7 @@ const SwapDetails: FC<SwapDetails> = ({
                 <TradePrice
                   inputCurrency={inputCurrency}
                   outputCurrency={outputCurrency}
+                  // @ts-ignore Note (amiller68) - Sushiswap has alot of core functionality nested in non-core sdks, which conflivt with our own core-sdk :(
                   price={trade?.executionPrice}
                   showInverted={inverted}
                   setShowInverted={setInverted}

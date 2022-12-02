@@ -25,7 +25,9 @@ const StepperRoot: FC<StepperContext> = ({ children, activeStep, setActiveStep }
     <StepperContext.Provider value={contextValue}>
       {Children.map(children, (child, _index) => {
         if (isValidElement(child)) {
+          //Note (amiller68) - #ReactIssue
           return cloneElement(child, {
+            // @ts-ignore
             _index,
             _active: _index === activeStep,
             _last: _index === Children.count(children) - 1,

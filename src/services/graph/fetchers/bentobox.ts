@@ -13,17 +13,17 @@ import { pager } from './pager'
 
 export const BENTOBOX = {
   [ChainId.ETHEREUM]: 'matthewlilley/bentobox-ethereum',
-  [ChainId.XDAI]: 'matthewlilley/bentobox-gnosis',
-  [ChainId.MATIC]: 'matthewlilley/bentobox-polygon',
-  [ChainId.FANTOM]: 'matthewlilley/bentobox-fantom',
-  [ChainId.BSC]: 'matthewlilley/bentobox-bsc',
-  [ChainId.ARBITRUM]: 'matthewlilley/bentobox-arbitrum',
-  [ChainId.AVALANCHE]: 'matthewlilley/bentobox-avalanche',
-  [ChainId.MOONBEAM]: 'matthewlilley/bentobox-moonbeam',
-  [ChainId.MOONRIVER]: 'matthewlilley/bentobox-moonriver',
-  [ChainId.CELO]: 'matthewlilley/bentobox-celo',
-  [ChainId.OPTIMISM]: 'matthewlilley/bentobox-optimism',
-  [ChainId.KAVA]: 'sushiswap/bentobox-kava',
+  // [ChainId.XDAI]: 'matthewlilley/bentobox-gnosis',
+  // [ChainId.MATIC]: 'matthewlilley/bentobox-polygon',
+  // [ChainId.FANTOM]: 'matthewlilley/bentobox-fantom',
+  // [ChainId.BSC]: 'matthewlilley/bentobox-bsc',
+  // [ChainId.ARBITRUM]: 'matthewlilley/bentobox-arbitrum',
+  // [ChainId.AVALANCHE]: 'matthewlilley/bentobox-avalanche',
+  // [ChainId.MOONBEAM]: 'matthewlilley/bentobox-moonbeam',
+  // [ChainId.MOONRIVER]: 'matthewlilley/bentobox-moonriver',
+  // [ChainId.CELO]: 'matthewlilley/bentobox-celo',
+  // [ChainId.OPTIMISM]: 'matthewlilley/bentobox-optimism',
+  // [ChainId.KAVA]: 'sushiswap/bentobox-kava',
 }
 
 // @ts-ignore TYPE NEEDS FIXING

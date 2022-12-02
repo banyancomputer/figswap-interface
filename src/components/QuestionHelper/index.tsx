@@ -33,6 +33,7 @@ const QuestionHelper: FC<{
   if (children) {
     return (
       <Tooltip text={text} show={show || toggle} className={className}>
+        {/* @ts-ignore Note (amiller68) - #ReactIssue */}
         {React.cloneElement(children, {
           ref: node,
           onClick: handler,

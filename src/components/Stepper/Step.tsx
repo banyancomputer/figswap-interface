@@ -12,7 +12,9 @@ const Step: FC<Step> = ({ _index, _active, _last, children }) => {
       <div className="flex flex-col">
         {Children.map(children, (child) => {
           if (isValidElement(child)) {
+            //Note (amiller68) - #ReactIssue
             return cloneElement(child, {
+              // @ts-ignore
               _index,
               _active,
               _last,

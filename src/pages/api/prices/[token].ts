@@ -1,4 +1,4 @@
-import { withSentry } from '@sentry/nextjs'
+// import { withSentry } from '@sentry/nextjs'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import redis from '../../../services/redis'
@@ -8,4 +8,6 @@ const handler = async ({ query: { token } }: NextApiRequest, res: NextApiRespons
   res.status(200).json({ price })
 }
 
-export default withSentry(handler)
+// export default withSentry(handler)
+// TODO (amiller68) - #Sentry
+export default handler

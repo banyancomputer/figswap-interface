@@ -1,6 +1,6 @@
 import { Pair } from '@figswap/core-sdk'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AvailablePoolConfig } from 'app/components/Migrate/migrate-utils'
+// import { AvailablePoolConfig } from 'app/components/Migrate/migrate-utils'
 import { StandardSignatureData } from 'app/hooks/useERC20Permit'
 import { TridentPool } from 'app/services/graph'
 import { AppState } from 'app/state'
@@ -13,7 +13,7 @@ export enum MigrationSource {
 export interface v2Migration {
   v2Pair: Pair
   matchingTridentPool?: TridentPool
-  poolToCreate?: AvailablePoolConfig
+  poolToCreate?: null // AvailablePoolConfig
   slpPermit?: StandardSignatureData
 }
 

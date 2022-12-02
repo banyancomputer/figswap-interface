@@ -1,7 +1,6 @@
 import { defaultAbiCoder } from '@ethersproject/abi'
 import { Signature } from '@ethersproject/bytes'
 import { Contract } from '@ethersproject/contracts'
-import { ChainId } from '@figswap/core-sdk'
 import { LiquidityOutput } from 'app/features/trident/types'
 import { StandardSignatureData } from 'app/hooks/useERC20Permit'
 
@@ -123,10 +122,6 @@ interface UnwrapETHAction {
  * @param liquidityOutput array with minimum output amounts for underlying tokens
  */
 export const unwrapWETHAction = ({ chainId, router, recipient, amountMinimum }: UnwrapETHAction) => {
-  if (chainId === ChainId.MATIC) {
-    return router.interface.encodeFunctionData('unwrapWETH', [amountMinimum, recipient])
-  }
-
   return router.interface.encodeFunctionData('unwrapWETH', [recipient])
 }
 

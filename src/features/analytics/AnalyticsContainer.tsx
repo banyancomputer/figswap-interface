@@ -1,5 +1,3 @@
-import { Feature } from 'app/enums'
-import { featureEnabled } from 'app/functions'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
@@ -16,10 +14,6 @@ export default function AnalyticsContainer({ children }): JSX.Element {
       href: `/analytics/${chainId}/dashboard`,
     },
     {
-      text: 'xSushi',
-      href: '/analytics/xsushi',
-    },
-    {
       text: 'Pairs',
       href: `/analytics/${chainId}/pairs`,
     },
@@ -28,20 +22,6 @@ export default function AnalyticsContainer({ children }): JSX.Element {
       href: `/analytics/${chainId}/tokens`,
     },
   ]
-
-  if (featureEnabled(Feature.LIQUIDITY_MINING, Number(chainId))) {
-    items.push({
-      text: 'Farms',
-      href: `/analytics/${chainId}/farms`,
-    })
-  }
-
-  if (featureEnabled(Feature.BENTOBOX, Number(chainId))) {
-    items.push({
-      text: 'BentoBox',
-      href: `/analytics/${chainId}/bentobox`,
-    })
-  }
 
   return (
     <div className="relative w-full">
