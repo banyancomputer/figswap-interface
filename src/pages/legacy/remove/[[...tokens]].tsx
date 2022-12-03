@@ -7,7 +7,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button from 'app/components/Button'
 import { CurrencyLogo } from 'app/components/CurrencyLogo'
-import { percentToRemove } from 'app/components/Header/styles'
 import Input from 'app/components/Input'
 import ListPanel from 'app/components/ListPanel'
 import NavLink from 'app/components/NavLink'
@@ -440,12 +439,6 @@ export default function Remove() {
                   </Typography>
                 </div>
               </Typography>
-            </div>
-            <div className="grid grid-cols-4 gap-1">
-              <div className={percentToRemove}>25%</div>
-              <div className={percentToRemove}>50%</div>
-              <div className={percentToRemove}>75%</div>
-              <div className={percentToRemove}>MAX</div>
             </div>
           </div>
           <div className="flex flex-col items-center">
