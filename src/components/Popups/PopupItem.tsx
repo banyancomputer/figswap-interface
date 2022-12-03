@@ -25,7 +25,7 @@ const AnimatedFader = ({ duration }) => (
         }
       }
     `}</style>
-    <div className="animation h-[3px] bg-gradient-to-r from-blue to-pink" />
+    <div className="animation h-[3px] bg-[#746AFB]" />
   </div>
 )
 
@@ -62,11 +62,11 @@ export default function PopupItem({
 
   return (
     <div className="mb-4">
-      <div className="relative w-full overflow-hidden rounded bg-dark-700">
-        <div className="flex flex-row p-4">
+      <div className="relative w-full overflow-hidden rounded bg-[#082816] border border-[#06A650] text-[#06A650]">
+        <div className="flex flex-row p-4 uppercase font-mono text-2xl whitespace-nowrap">
           {popupContent}
           <div className="cursor-pointer hover:text-white">
-            <XIcon width={24} height={24} onClick={removeThisPopup} />
+            <XIcon width={24} height={24} onClick={removeThisPopup} color="#06A650" />
           </div>
         </div>
         {removeAfterMs !== null ? <AnimatedFader duration={removeAfterMs} /> : null}
