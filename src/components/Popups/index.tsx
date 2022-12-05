@@ -13,9 +13,7 @@ const Popups: FC = () => {
   return (
     <>
       <div
-        className={`hidden md:block fixed py-4 px-2 inset-x-2/4	max-w-md w-full z-30 flex flex-col ${
-          urlWarningActive ? '' : 'top-[88px]'
-        }`}
+        className={`hidden md:block fixed	max-w-md w-full z-30 flex flex-col ${urlWarningActive ? '' : 'top-[88px]'}`}
       >
         {/*@ts-ignore TYPE NEEDS FIXING*/}
         {activePopups.map((item) => (

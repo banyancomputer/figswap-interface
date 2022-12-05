@@ -2,7 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
 import { TransactionResponse } from '@ethersproject/providers'
 import { NATIVE, Percent, WNATIVE, WNATIVE_ADDRESS } from '@figswap/core-sdk'
-import { CogIcon } from '@heroicons/react/outline'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button from 'app/components/Button'
@@ -50,9 +49,6 @@ export default function Remove() {
   const { pair, parsedAmounts, error } = useDerivedBurnInfo(currencyA ?? undefined, currencyB ?? undefined)
   const { onUserInput: _onUserInput } = useBurnActionHandlers()
   const isValid = !error
-
-  //show settings
-  const [showSettings, setShowSettings] = React.useState(false)
 
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
@@ -397,7 +393,6 @@ export default function Remove() {
                 <ArrowLeft className="text-secondary cursor-pointer hover:text-white" />
               </NavLink>
             </div>
-            <CogIcon width={25} onClick={() => setShowSettings(true)} color={'#746AFB'} className="cursor-pointer" />
           </div>
         </div>
 

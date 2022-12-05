@@ -1,5 +1,6 @@
 import Container from 'app/components/Container'
 import DoubleGlowShadow from 'app/components/DoubleGlowShadow'
+import Popups from 'app/components/Popups'
 import { classNames } from 'app/functions'
 import React, { FC } from 'react'
 
@@ -17,11 +18,14 @@ export const SwapLayoutCard: FC<{ className?: string }> = ({ children, className
 
 export const Layout: FC<Layout> = ({ children, id }) => {
   return (
-    <DefaultLayout>
-      <Container id={id} className="py-4 px-2 ml-auto mr-auto" maxWidth="md">
-        <DoubleGlowShadow>{children}</DoubleGlowShadow>
-      </Container>
-    </DefaultLayout>
+    <>
+      <Popups />
+      <DefaultLayout>
+        <Container id={id} className="py-4 px-2 ml-auto mr-auto" maxWidth="md">
+          <DoubleGlowShadow>{children}</DoubleGlowShadow>
+        </Container>
+      </DefaultLayout>
+    </>
   )
 }
 

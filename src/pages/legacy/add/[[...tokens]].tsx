@@ -325,72 +325,72 @@ const Add = ({ placeholderSlippage, trident = false, className }: Props) => {
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-4 p-3 mt-4">
               <TransactionSettings placeholderSlippage={placeholderSlippage} trident={trident} />
-            </div>
-
-            <div className="flex flex-col gap-3 p-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <Typography variant="lg" className="text-high-emphesis" weight={700}>
-                    {i18n._(t`Expert mode`)}
-                  </Typography>
-                  <QuestionHelper
-                    text={i18n._(
-                      t`Bypasses confirmation modals and allows high slippage trades. Use at your own risk.`
-                    )}
+              <div className="flex flex-col gap-3 mt-1 mb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <Typography variant="lg" className="text-high-emphesis" weight={700}>
+                      {i18n._(t`Expert mode`)}
+                    </Typography>
+                    <QuestionHelper
+                      text={i18n._(
+                        t`Bypasses confirmation modals and allows high slippage trades. Use at your own risk.`
+                      )}
+                    />
+                  </div>
+                  <Switch
+                    size="sm"
+                    id="toggle-expert-mode-button"
+                    checked={expertMode}
+                    onChange={
+                      expertMode
+                        ? () => {
+                            toggleExpertMode()
+                            setShowConfirmation(false)
+                          }
+                        : () => {
+                            toggle()
+                            setShowConfirmation(true)
+                          }
+                    }
+                    checkedIcon={<CheckIcon className="text-dark-700" />}
+                    uncheckedIcon={<CloseIcon />}
+                    color="purple"
                   />
                 </div>
-                <Switch
-                  size="sm"
-                  id="toggle-expert-mode-button"
-                  checked={expertMode}
-                  onChange={
-                    expertMode
-                      ? () => {
+                <HeadlessUiModal.Controlled
+                  isOpen={showConfirmation}
+                  onDismiss={() => setShowConfirmation(false)}
+                  maxWidth="md"
+                >
+                  <div className="flex flex-col gap-4">
+                    <HeadlessUiModal.Header header={i18n._(t`Confirm`)} onClose={() => setShowConfirmation(false)} />
+                    <HeadlessUiModal.BorderedContent className="flex flex-col gap-3">
+                      <Typography variant="sm" weight={700} className="text-white">
+                        {i18n._(t`Expert mode turns off the confirm transaction prompt and allows high slippage trades
+                              that often result in bad rates and lost funds.`)}
+                      </Typography>
+                    </HeadlessUiModal.BorderedContent>
+                    <div className="flex flex-col gap-4 items-center">
+                      <div className="flex items-center border p-4 w-11/12 text-xs border-[#E8DB31] text-[#E8DB31] bg-[#E8DB31] bg-opacity-25">
+                        <ExclamationIcon className="text-yellow mr-2" width={24} />
+                        Only use this mode if you know what you are doing.
+                      </div>
+                      <Button
+                        id="confirm-expert-mode"
+                        color="yellow"
+                        variant="filled"
+                        onClick={() => {
                           toggleExpertMode()
                           setShowConfirmation(false)
-                        }
-                      : () => {
-                          toggle()
-                          setShowConfirmation(true)
-                        }
-                  }
-                  checkedIcon={<CheckIcon className="text-dark-700" />}
-                  uncheckedIcon={<CloseIcon />}
-                  color="purple"
-                />
-              </div>
-              <HeadlessUiModal.Controlled
-                isOpen={showConfirmation}
-                onDismiss={() => setShowConfirmation(false)}
-                maxWidth="md"
-              >
-                <div className="flex flex-col gap-4">
-                  <HeadlessUiModal.Header header={i18n._(t`Confirm`)} onClose={() => setShowConfirmation(false)} />
-                  <HeadlessUiModal.BorderedContent className="flex flex-col gap-3">
-                    <Typography variant="sm" weight={700} className="text-white">
-                      {i18n._(t`Expert mode turns off the confirm transaction prompt and allows high slippage trades
-                              that often result in bad rates and lost funds.`)}
-                    </Typography>
-                  </HeadlessUiModal.BorderedContent>
-                  <div className="flex flex-col gap-4 items-center">
-                    <div className="flex items-center border p-4 w-11/12 text-xs border-[#E8DB31] text-[#E8DB31] bg-[#E8DB31] bg-opacity-25">
-                      <ExclamationIcon className="text-yellow mr-2" width={24} />
-                      Only use this mode if you know what you are doing.
+                        }}
+                        className="p-2"
+                      >
+                        {i18n._(t`Enable Expert Mode`)}
+                      </Button>
                     </div>
-                    <Button
-                      id="confirm-expert-mode"
-                      color="yellow"
-                      variant="filled"
-                      onClick={() => {
-                        toggleExpertMode()
-                        setShowConfirmation(false)
-                      }}
-                    >
-                      {i18n._(t`Enable Expert Mode`)}
-                    </Button>
                   </div>
-                </div>
-              </HeadlessUiModal.Controlled>
+                </HeadlessUiModal.Controlled>
+              </div>
             </div>
           </div>
         </SwapLayoutCard>
