@@ -76,6 +76,7 @@ const AccountDetails: FC<AccountDetailsProps> = ({
                 // @ts-ignore TYPE NEEDS FIXING
                 address={account}
                 defaultComponent={
+                  // #MissingSmileySVG this is where the Smiley SVG goes in "Account"
                   <svg
                     width="84"
                     height="89"
