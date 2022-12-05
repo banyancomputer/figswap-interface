@@ -92,11 +92,14 @@ export default function Web3Status() {
         {library && account && chainId && <Web3Network />}
         {/* Show lil thing below it all if they have any pending transactions */}
         {hasPendingTransactions && (
-          <div className="flex items-center justify-between gap-2" onClick={toggleWalletModal}>
-            <div>
-              {pending?.length} {i18n._(t`Pending`)}
+          <div
+            className="flex items-center gap-2 bg-[#E8DB31] bg-opacity-25 p-1 ml-2 mr-2 rounded-xl mt-2 ml-2"
+            onClick={toggleWalletModal}
+          >
+            <Loader stroke="#E8DB31" />
+            <div className="text-[#E8DB31] font-bold font-mono">
+              {pending?.length} {i18n._(t`PENDING...`)}
             </div>{' '}
-            <Loader stroke="white" />
           </div>
         )}
         {/* Wallet Modal launched by clicking on Davatar + Account button */}

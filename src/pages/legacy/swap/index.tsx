@@ -353,6 +353,7 @@ const Swap = ({ placeholderSlippage, className, trident = false, inputCurrency, 
         tokens={importTokensNotInDefault}
         onConfirm={handleConfirmTokenWarning}
       />
+
       {showSettings ? (
         <SwapLayoutCard>
           <div className="px-2">
