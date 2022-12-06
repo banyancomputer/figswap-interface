@@ -76,6 +76,7 @@ const AccountDetails: FC<AccountDetailsProps> = ({
                 // @ts-ignore TYPE NEEDS FIXING
                 address={account}
                 defaultComponent={
+                  // #MissingSmileySVG this is where the Smiley SVG goes in "Account"
                   <svg
                     width="84"
                     height="89"
@@ -136,7 +137,7 @@ const AccountDetails: FC<AccountDetailsProps> = ({
               pathname: '/account',
             }}
           >
-            <Button size="xs" className="border-none bg-inherit color-white">
+            <Button size="xs" className="bg-[#080808] border-none color-white">
               <ChevronRight size={35} />
             </Button>
           </NavLink>
@@ -147,7 +148,7 @@ const AccountDetails: FC<AccountDetailsProps> = ({
           <Typography variant="lg" weight={700} className="text-white">
             {i18n._(t`Transaction History`)}
           </Typography>
-          <Button size="xs" onClick={clearAllTransactionsCallback} className="border-none bg-inherit text-[#746AFB]">
+          <Button size="xs" onClick={clearAllTransactionsCallback} className="bg-[#080808] border-none">
             {i18n._(t`Clear all`)}
           </Button>
         </div>

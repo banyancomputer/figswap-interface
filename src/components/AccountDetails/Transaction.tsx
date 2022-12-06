@@ -33,7 +33,7 @@ const Transaction: FC<{ hash: string }> = ({ hash }) => {
 
   return (
     <div className="flex flex-col w-full py-1">
-      <div className="flex gap-1">
+      <div className="flex gap-1 border-b border-b-[#2E2E2E] border-b-[2px] pb-2">
         <ExternalLink href={getExplorerLink(chainId, hash, 'transaction')} className="flex items-center gap-2">
           <div
             className={classNames(
@@ -51,14 +51,18 @@ const Transaction: FC<{ hash: string }> = ({ hash }) => {
             {pending ? (
               <Loader />
             ) : success ? (
-              <CheckCircleIcon width={16} height={16} />
+              <CheckCircleIcon width={20} height={20} color="#746AFB" />
             ) : cancelled ? (
-              <XCircleIcon width={16} height={16} />
+              <XCircleIcon width={20} height={20} />
             ) : (
-              <ExclamationIcon width={16} height={16} />
+              <ExclamationIcon width={20} height={20} />
             )}
           </div>
-          <Typography variant="xs" weight={700} className="flex gap-1 items-center hover:underline py-0.5">
+          <Typography
+            variant="lg"
+            weight={700}
+            className="flex gap-1 items-center text-[#746AFB] py-0.5 font-mono uppercase"
+          >
             {summary ?? hash}
           </Typography>
         </ExternalLink>
